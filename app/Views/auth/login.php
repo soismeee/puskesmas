@@ -15,30 +15,26 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Login Aplikasi Klinik!</h1>
                                 </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                <form class="user" action="<?= site_url('login/auth'); ?>" method="POST">
+                                    <?php if (session()->getFlashdata('error')) : ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>Gagal!</strong> <?= session()->getFlashdata('error'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
+                                    <?php endif; ?>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user" name="username" id="username" aria-describedby="username" value="<?= session()->getFlashdata('username'); ?>" placeholder="Masukan username anda">
                                     </div>
-                                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                        Login
-                                    </a>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Masukan password anda">
+                                    </div>
+                                    <input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="Login">
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                </div>
                                 <div class="text-center">
                                     <a class="small" href="register.html">Create an Account!</a>
                                 </div>

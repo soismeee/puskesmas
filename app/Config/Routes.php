@@ -35,7 +35,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Dashboard::index');
+$routes->get('/', 'Dashboard::index', ['filter' => 'authLogin']);
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'authLogin']);
+$routes->get('/login', 'Login::index', ['filter' => 'authLogout']);
 //$routes->get('/pasien/daftarpasien', 'Pasien::daftarpasien');
 // $routes->get('/pasien/tambahpasien', 'DaftarPasien::tambahpasien');
 //$routes->get('/pasien/datapasien', 'DaftarPasien::datapasien');
