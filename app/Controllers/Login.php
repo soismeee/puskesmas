@@ -9,6 +9,7 @@ class Login extends Controller
 {
     public function index()
     {
+        // halaman login
         return view('auth/login');
     }
 
