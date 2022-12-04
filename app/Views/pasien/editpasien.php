@@ -15,7 +15,7 @@ Edit Pasien
             <div class="form-group row">
                 <label for="id_pasien" class="col-sm-2 col-form-label">Id Pasien</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control <?= ($validation->hasError('id_pasien')) ? 'is-invalid' : ''; ?>" id="id_pasien" name="id_pasien" autofocus value="<?= old('id_pasien', $listpasien['id_pasien']); ?> ">
+                    <input type="text" class="form-control <?= ($validation->hasError('id_pasien')) ? 'is-invalid' : ''; ?>" readonly id="id_pasien" name="id_pasien" autofocus value="<?= old('id_pasien', $listpasien['id_pasien']); ?> ">
                     <div id="id_pasienFeedback" class="invalid-feedback"> <?= $validation->getError('id_pasien'); ?>
                     </div>
                 </div>

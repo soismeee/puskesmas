@@ -17,11 +17,23 @@ class periksa extends BaseController
     {
         $data = [
             'title' => 'Periksa',
+            'button' => 1,
             'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->findAll()
         ];
 
         return view('periksa/periksa', $data);
     }
+
+    public function selesai(){
+        $data = [
+            'title' => 'Data Selesai',
+            'button' => 0,
+            'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->findAll()
+        ];
+
+        return view('periksa/periksa', $data);
+    }
+
     public function detailperiksa($idperiksa)
     {
         $data = [
@@ -30,6 +42,7 @@ class periksa extends BaseController
         ];
         return view('periksa/detailperiksa', $data);
     }
+
     public function simpan()
     {
         //validasi input data
@@ -53,7 +66,7 @@ class periksa extends BaseController
                     'required' => '{field} id_harus diisi harus diisi',
                 ],
             ],
-            'nama_poli' => [
+            'nama_poli_periksa' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} id_harus diisi harus diisi',
@@ -71,8 +84,8 @@ class periksa extends BaseController
             'tanggal_periksa' => $this->request->getVar('tanggal_periksa'),
             'waktu_daftar' => date('Y-m-d h:i:sa'),
             'shift' => $this->request->getVar('shift'),
-            'nama_poli' => $this->request->getVar('nama_poli'),
-            // 'nama_poli' => $this->request->getVar('nama_poli')
+            'nama_poli_periksa' => $this->request->getVar('nama_poli_periksa'),
+            // 'nama_poli_periksa' => $this->request->getVar('nama_poli_periksa')
         ]);
 
         // $this->PenggunaModel->insert([
@@ -84,6 +97,7 @@ class periksa extends BaseController
         session()->setFlashdata('pesan', 'Data Sudah Berhasil Ditambahkan');
         return redirect()->to('/periksa');
     }
+
     public function tambahperiksa()
     {
 
@@ -118,6 +132,7 @@ class periksa extends BaseController
 
         return view('periksa/editperiksa', $data);
     }
+
     public function update($idperiksa)
     {
 
@@ -126,8 +141,8 @@ class periksa extends BaseController
             'id_periksa' => $this->request->getPost('id_periksa'),
             'id_periksa' => $this->request->getPost('id_periksa'),
             'waktu_daftar' => $this->request->getPost('waktu_daftar'),
-            'nama_poli' => $this->request->getPost('nama_poli'),
-            // 'nama_poli' => $this->request->getPost('nama_poli')
+            'nama_poli_periksa' => $this->request->getPost('nama_poli_periksa'),
+            // 'nama_poli_periksa' => $this->request->getPost('nama_poli_periksa')
         ]);
 
         return redirect()->to('/periksa');

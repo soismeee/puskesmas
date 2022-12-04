@@ -32,26 +32,24 @@ class Pasien extends BaseController
         $data['listRm'] = $this->RmModel->where('id_pasien', $id)->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll();
         return view('pasien/detailpasien', $data);
     }
+    
     public function simpan()
     {
         //validasi input data
         if (!$this->validate([
-            'id_pasien' => [
-                'rules' => 'required|is_unique[pasien.id_pasien]',
-                'errors' => [
-                    'required' => '{field} id_harus diisi harus diisi',
-                    'is_unique' => '{field} id sudah ada'
-                ]
-            ]
+            'nama_pasien' => 'required',
+            'tanggal_lahir' => 'required',
+            'jekel' => 'required',
+            'nama_kk' => 'required',
+            'alamat_pasien' => 'required',
+            'nama_poli' => 'required',
         ])) {
 
             // menampilkan pesan kesalahan
             $validation = \Config\Services::validation();
-
             return redirect()->to('/Pasien/tambah')->withInput()->with('validation', $validation);
         }
         $this->PasienModel->insert([
-            'id_pasien' => $this->request->getVar('id_pasien'),
             'nama_pasien' => $this->request->getVar('nama_pasien'),
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
             'jekel' => $this->request->getVar('jekel'),

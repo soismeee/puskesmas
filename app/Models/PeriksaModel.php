@@ -9,7 +9,7 @@ class PeriksaModel extends Model
 {
     protected $table = 'periksa';
     protected $primaryKey = 'id_periksa';
-    protected $allowedFields = ['id_periksa', 'id_pasien', 'tanggal_periksa', 'shift', 'waktu_daftar', 'nama_poli'];
+    protected $allowedFields = ['id_periksa', 'id_pasien', 'tanggal_periksa', 'shift', 'waktu_daftar', 'nama_poli_periksa'];
 
     public function getPeriksa($idperiksa = false)
     {

@@ -9,7 +9,9 @@ Periksa
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h6 style="color: #00f;"> Data Pemeriksaan Pasien </h6>
+            <?php if($button == 1) : ?>
             <a href="/periksa/tambahperiksa" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah Pasien</a>
+            <?php endif; ?>
         </div>
     </div>
     <!-- flasdata dengan alert -->
@@ -43,7 +45,7 @@ Periksa
                             <td><?= $a['tanggal_periksa']; ?></td>
                             <td><?= $a['shift']; ?></td>
                             <td><?= $a['waktu_daftar']; ?></td>
-                            <td><?= $a['nama_poli']; ?></td>
+                            <td><?= $a['nama_poli_periksa']; ?></td>
                             <td>
 
                                 <div class="d-flex justify-content-center">

@@ -25,7 +25,7 @@ Daftar Pengguna Klinik Dharma Mulia
                         <th scope="col">No</th>
                         <th scope="col">Id User</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Password</th>
+                        <!-- <th scope="col">Password</th> -->
                         <th scope="col">Hak Akses</th>
                         <th scope="col">Aksi</th>
                     </tr>
@@ -39,7 +39,7 @@ Daftar Pengguna Klinik Dharma Mulia
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $a['id_user']; ?></td>
                             <td><?= $a['username']; ?></td>
-                            <td><?= $a['password']; ?></td>
+                            <!-- <td><?= $a['password']; ?></td> -->
                             <td><?= $a['hak_akses']; ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">

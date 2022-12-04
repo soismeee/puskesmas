@@ -55,14 +55,13 @@ Daftar Pasien
                                         <a href="/pasien/editpasien/<?= $p['id_pasien']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>
 
                                         <!-- pembayaran -->
-                                        <a href="/pasien/cetak/<?= $p['id_pasien']; ?>" class="btn btn-md btn-secondary"><i class="fas fa-print"></i></a>
+                                        <a href="/pasien/print/<?= $p['id_pasien']; ?>" class="btn btn-md btn-secondary"><i class="fas fa-print"></i></a>
                                         <!-- button hapus -->
-                                        
-                                    </div>
-                                    <div class="hapus">
                                         <a href="#" class=" d-inline btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $p['id_pasien'] ?>">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                    </div>
+                                    <div class="hapus">
                                         <!-- Button hapus -->
                                         <div class="modal fade" id="deleteModal_<?= $p['id_pasien'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -73,12 +72,12 @@ Daftar Pasien
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/daftarpasien/hapus/<?= $p['id_pasien']; ?>" method="get">
+                                                    <form action="/pasien/hapus/<?= $p['id_pasien']; ?>" method="get">
                                                         <div class="modal-body">
                                                             Apakah Anda Yakin Ingin Menggapus Data?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                                                             <button type="submit" class="btn btn-warning">Hapus</button>
                                                         </div>
                                                     </form>

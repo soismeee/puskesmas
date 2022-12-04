@@ -27,31 +27,31 @@ Edit Pemeriksaan Pasien
             <div class="form-group row">
                 <div class="col-2"><label for="shift">Tanggal Periksa</label></div>
                 <div class="col-10">
-                    <input type="datetime-local" class="form-control" id="tanggal_periksa" name="tanggal_periksa">
+                    <input type="datetime-local" class="form-control" id="tanggal_periksa" value="<?= $periksa['tanggal_periksa']; ?>" name="tanggal_periksa">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-2"><label for="shift">Shift / Jam Kerja</label></div>
                 <div class="col-10">
                     <select name="shift" id="shift" class="form-control">
-                        <option value="Pagi">Pagi</option>
-                        <option value="Siang">Siang</option>
+                        <option <?= $periksa['shift'] == "Pagi" ? 'selected' : '' ?> value="Pagi">Pagi</option>
+                        <option <?= $periksa['shift'] == "Siang" ? 'selected' : '' ?> value="Siang">Siang</option>
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-2"><label for="shift">Waktu Pendaftaran</label></div>
                 <div class="col-10">
-                    <input type="datetime-local" class="form-control" id="waktu_daftar" name="waktu_daftar">
+                    <input type="datetime-local" class="form-control" id="waktu_daftar" value="<?= $periksa['tanggal_periksa']; ?>" name="waktu_daftar">
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-2"><label for="nama_poli">Poli Klinik</label></div>
+                <div class="col-2"><label for="nama_poli_periksa">Poli Klinik</label></div>
                 <div class="col-10">
-                    <select name="nama_poli" id="nama_poli" class="form-control">
-                        <option value="Umum">Poli Umum</option>
-                        <option value="Gigi">Poli Gigi</option>
-                        <option value="KIA/KB">Poli KIA/KB</option>
+                    <select name="nama_poli_periksa" id="nama_poli_periksa" class="form-control">
+                        <option <?= $periksa['nama_poli_periksa'] == "Umum" ? 'selected' : '' ?> value="Umum">Poli Umum</option>
+                        <option <?= $periksa['nama_poli_periksa'] == "Gigi" ? 'selected' : '' ?> value="Gigi">Poli Gigi</option>
+                        <option <?= $periksa['nama_poli_periksa'] == "KIA/KB" ? 'selected' : '' ?> value="KIA/KB">Poli KIA/KB</option>
                     </select>
                 </div>
             </div>

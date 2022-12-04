@@ -7,49 +7,64 @@
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                <div class="col-lg-7">
+                <!-- <div class="col-lg-5 d-none d-lg-block bg-register-image"></div> -->
+                <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Buat akun aplikasi!</h1>
                         </div>
-                        <form class="user">
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                        <?= $validation->listErrors(); ?>
+                        <form class="user" action="/login/save" method="POST">
+                            <?= csrf_field(); ?>
+                            <div class="from-group">
+                                <div class="col-sm-12">
+                                    <h4>Form data pasien</h4>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                <label for="">Nama</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('nama_pasien')) ? 'is-invalid' : ''; ?>" id="nama_pasien" name="nama_pasien" placeholder="Masukan nama anda">
+                                <?= $validation->getError('nama_pasien'); ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nama KK</label>
+                                <input type="text" class="form-control" id="nama_kk" name="nama_kk" placeholder="Masukan nama anda">
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                    <label for="">Tanggal lahir</label>
+                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" placeholder="Tanggal lahir">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                    <label for="">Jenis Kelamin</label>
+                                    <select name="jekel" id="jekel" class="form-control">
+                                        <option disabled selected>Pilih jenis kelamin</option>
+                                        <option value="Laki-laki">Laki-laki</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                    </select>
                                 </div>
                             </div>
-                            <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                Register Account
-                            </a>
-                            <hr>
-                            <a href="index.html" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Register with Google
-                            </a>
-                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                            </a>
+                            <div class="form-group">
+                                <label for="">alamat</label>
+                                <textarea name="alamat_pasien" id="alamat_pasien" cols="10" rows="3" class="form-control" placeholder="Masukan alamat anda"></textarea>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                <h4> &nbsp;&nbsp; Form data akun</h4>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Buat username anda">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="password" name="password" placeholder="Buat password anda">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Registrasi sekarang</button>
+                            <!-- <input class="btn btn-primary btn-user btn-block" type="submit" name="register" value="Buat akun sekarang"> -->
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="login.html">Already have an account? Login!</a>
+                            <a class="small" href="<?= site_url('login'); ?>">Sudah punya akun? Login sekarang!</a>
                         </div>
                     </div>
                 </div>

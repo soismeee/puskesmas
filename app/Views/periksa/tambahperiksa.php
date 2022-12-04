@@ -54,9 +54,9 @@ Tambah Pasien
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-2"><label for="nama_poli">Poli Klinik</label></div>
+                <div class="col-2"><label for="nama_poli_periksa">Poli Klinik</label></div>
                 <div class="col-10">
-                    <select name="nama_poli" id="nama_poli" class="form-control">
+                    <select name="nama_poli_periksa" id="nama_poli_periksa" class="form-control">
                         <option value="Umum">Poli Umum</option>
                         <option value="Gigi">Poli Gigi</option>
                         <option value="KIA/KB">Poli KIA/KB</option>

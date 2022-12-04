@@ -16,19 +16,13 @@ Tambah Pasien
 
         <form method="post" action="/Pasien/simpan">
             <!-- <div class="form-group row">
-                <label for="tanggal_daftar" class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" id="tanggal_daftar" name="tanggal_daftar" placeholder="Masukan Tanggal Hari Ini">
-                </div>
-            </div> -->
-            <div class="form-group row">
                 <label for="id_pasien" class="col-sm-2 col-form-label">Id Pasien</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control <?= ($validation->hasError('id_pasien')) ? 'is-invalid' : ''; ?>" id="id_pasien" name="id_pasien" autofocus value="<?= old('id_pasien'); ?> ">
-                    <div id="id_pasienFeedback" class="invalid-feedback"> <?= $validation->getError('id_pasien'); ?>
+                        <div id="id_pasienFeedback" class="invalid-feedback"> <?= $validation->getError('id_pasien'); ?>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="form-group row">
                 <label for="nama_pasien" class="col-sm-2 col-form-label">Nama Pasien</label>
                 <div class="col-sm-10">
