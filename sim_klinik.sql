@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 29 Nov 2022 pada 12.56
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.5
+-- Host: localhost:3306
+-- Generation Time: Dec 05, 2022 at 01:11 AM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,33 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dokter`
+-- Table structure for table `dokter`
 --
 
 CREATE TABLE `dokter` (
   `id_dokter` varchar(10) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
   `nama_dokter` varchar(50) NOT NULL,
   `alamat_dokter` varchar(30) NOT NULL,
   `no_tlp` varchar(15) NOT NULL,
   `jenis_poli` varchar(10) NOT NULL,
-  `status` varchar(15) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `status` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `dokter`
+-- Dumping data for table `dokter`
 --
 
-INSERT INTO `dokter` (`id_dokter`, `nama_dokter`, `alamat_dokter`, `no_tlp`, `jenis_poli`, `status`, `username`, `password`) VALUES
-('111 ', 'Vigero', 'A', '085', 'Umum', 'aktif', '', ''),
-('2134 ', 'ayu', 'sragi', '093981298', 'Gigi', 'senin', '', ''),
-('23792 ', 'b', 'bojong', '08978756799', 'Umum', 'tidak aktif', '', '');
+INSERT INTO `dokter` (`id_dokter`, `id_pengguna`, `nama_dokter`, `alamat_dokter`, `no_tlp`, `jenis_poli`, `status`) VALUES
+('111 ', 0, 'Vigero', 'A', '085', 'Umum', 'aktif'),
+('2134 ', 0, 'ayu', 'sragi', '093981298', 'Gigi', 'senin'),
+('23792 ', 0, 'b', 'bojong', '08978756799', 'Umum', 'tidak aktif');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_dokter`
+-- Table structure for table `jadwal_dokter`
 --
 
 CREATE TABLE `jadwal_dokter` (
@@ -61,7 +60,7 @@ CREATE TABLE `jadwal_dokter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jadwal_dokter`
+-- Dumping data for table `jadwal_dokter`
 --
 
 INSERT INTO `jadwal_dokter` (`id_jadwal`, `jadwal_dokter`, `id_dokter`, `jam`) VALUES
@@ -79,7 +78,7 @@ INSERT INTO `jadwal_dokter` (`id_jadwal`, `jadwal_dokter`, `id_dokter`, `jam`) V
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `laporan`
+-- Table structure for table `laporan`
 --
 
 CREATE TABLE `laporan` (
@@ -91,7 +90,7 @@ CREATE TABLE `laporan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `nota`
+-- Table structure for table `nota`
 --
 
 CREATE TABLE `nota` (
@@ -105,7 +104,7 @@ CREATE TABLE `nota` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `obat`
+-- Table structure for table `obat`
 --
 
 CREATE TABLE `obat` (
@@ -118,50 +117,54 @@ CREATE TABLE `obat` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pasien`
+-- Table structure for table `pasien`
 --
 
 CREATE TABLE `pasien` (
-  `id_pasien` varchar(10) NOT NULL,
+  `id_pasien` int(255) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
   `nama_pasien` varchar(50) NOT NULL,
   `tanggal_lahir` date NOT NULL,
+  `jekel` varchar(20) NOT NULL,
   `nama_kk` varchar(50) NOT NULL,
   `alamat_pasien` varchar(50) NOT NULL,
-  `nama_poli` varchar(10) NOT NULL
+  `nama_poli` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pasien`
+-- Dumping data for table `pasien`
 --
 
-INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `tanggal_lahir`, `nama_kk`, `alamat_pasien`, `nama_poli`) VALUES
-('4667', 'andi', '2021-12-01', 'budi', 'Bojong', 'gigi');
+INSERT INTO `pasien` (`id_pasien`, `id_pengguna`, `nama_pasien`, `tanggal_lahir`, `jekel`, `nama_kk`, `alamat_pasien`, `nama_poli`) VALUES
+(2, 2, 'user1', '2004-12-12', 'Perempuan', 'user1', 'user1', NULL),
+(3, 0, 'coba ubah', '2003-08-24', 'Laki-laki', 'test', 'test', 'Umum');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE `pengguna` (
-  `id_user` varchar(10) NOT NULL,
+  `id_user` int(255) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `hak_akses` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pengguna`
+-- Dumping data for table `pengguna`
 --
 
 INSERT INTO `pengguna` (`id_user`, `nama`, `username`, `password`, `hak_akses`) VALUES
-(' 77776', 'anggi', 'agito', 'nano', 'dokter');
+(1, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
+(2, 'user1', 'user1', '24c9e15e52afc47c225b757e7bee1f9d', 'pasien');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `periksa`
+-- Table structure for table `periksa`
 --
 
 CREATE TABLE `periksa` (
@@ -170,20 +173,23 @@ CREATE TABLE `periksa` (
   `tanggal_periksa` datetime NOT NULL,
   `shift` varchar(30) NOT NULL,
   `waktu_daftar` datetime NOT NULL,
-  `nama_poli` varchar(30) NOT NULL
+  `nama_poli_periksa` varchar(30) NOT NULL,
+  `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `periksa`
+-- Dumping data for table `periksa`
 --
 
-INSERT INTO `periksa` (`id_periksa`, `id_pasien`, `tanggal_periksa`, `shift`, `waktu_daftar`, `nama_poli`) VALUES
-(9, '4667', '2022-11-28 12:24:00', 'Pagi', '2022-11-27 11:24:29', 'Umum');
+INSERT INTO `periksa` (`id_periksa`, `id_pasien`, `tanggal_periksa`, `shift`, `waktu_daftar`, `nama_poli_periksa`, `status`) VALUES
+(9, '2', '2022-11-28 12:24:00', 'Pagi', '2022-11-27 11:24:29', 'Umum', 'selesai'),
+(10, '2    ', '2022-11-29 22:18:00', 'Pagi', '2022-12-01 09:18:48', 'KIA/KB', 'proses'),
+(12, '3', '2022-12-04 20:32:00', 'Siang', '2022-12-04 07:32:28', 'Gigi', 'proses');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `petugas`
+-- Table structure for table `petugas`
 --
 
 CREATE TABLE `petugas` (
@@ -197,7 +203,7 @@ CREATE TABLE `petugas` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `poli`
+-- Table structure for table `poli`
 --
 
 CREATE TABLE `poli` (
@@ -208,7 +214,7 @@ CREATE TABLE `poli` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rekam_medis`
+-- Table structure for table `rekam_medis`
 --
 
 CREATE TABLE `rekam_medis` (
@@ -223,16 +229,17 @@ CREATE TABLE `rekam_medis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `rekam_medis`
+-- Dumping data for table `rekam_medis`
 --
 
 INSERT INTO `rekam_medis` (`id_rm`, `id_pasien`, `id_dokter`, `data_subjektif`, `data_objektif`, `diagnosa`, `planning`, `tanggal_periksa`) VALUES
-(36827928, '4667', '111 ', 'mk', 'mk', 'mk', 'mk', '2022-11-25');
+(36827928, '4667', '111 ', 'mk', 'mk', 'mk', 'mk', '2022-11-25'),
+(36827929, '4667', '111 ', 'asd', 'asd', 'addd', 'adasdasd', '2022-12-02');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `resep`
+-- Table structure for table `resep`
 --
 
 CREATE TABLE `resep` (
@@ -247,7 +254,7 @@ CREATE TABLE `resep` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `resep`
+-- Dumping data for table `resep`
 --
 
 INSERT INTO `resep` (`kode`, `tanggal`, `resep`, `id_dokter`, `id_pasien`, `umur`, `alamat_pasien`, `penerima`) VALUES
@@ -258,87 +265,99 @@ INSERT INTO `resep` (`kode`, `tanggal`, `resep`, `id_dokter`, `id_pasien`, `umur
 --
 
 --
--- Indeks untuk tabel `dokter`
+-- Indexes for table `dokter`
 --
 ALTER TABLE `dokter`
   ADD PRIMARY KEY (`id_dokter`);
 
 --
--- Indeks untuk tabel `jadwal_dokter`
+-- Indexes for table `jadwal_dokter`
 --
 ALTER TABLE `jadwal_dokter`
   ADD PRIMARY KEY (`id_jadwal`);
 
 --
--- Indeks untuk tabel `nota`
+-- Indexes for table `nota`
 --
 ALTER TABLE `nota`
   ADD PRIMARY KEY (`id_transaksi`);
 
 --
--- Indeks untuk tabel `pasien`
+-- Indexes for table `pasien`
 --
 ALTER TABLE `pasien`
   ADD PRIMARY KEY (`id_pasien`);
 
 --
--- Indeks untuk tabel `pengguna`
+-- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `periksa`
+-- Indexes for table `periksa`
 --
 ALTER TABLE `periksa`
   ADD PRIMARY KEY (`id_periksa`);
 
 --
--- Indeks untuk tabel `petugas`
+-- Indexes for table `petugas`
 --
 ALTER TABLE `petugas`
   ADD PRIMARY KEY (`id_petugas`);
 
 --
--- Indeks untuk tabel `poli`
+-- Indexes for table `poli`
 --
 ALTER TABLE `poli`
   ADD PRIMARY KEY (`id_poli`);
 
 --
--- Indeks untuk tabel `rekam_medis`
+-- Indexes for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
   ADD PRIMARY KEY (`id_rm`),
   ADD KEY `id_dokter` (`id_dokter`);
 
 --
--- Indeks untuk tabel `resep`
+-- Indexes for table `resep`
 --
 ALTER TABLE `resep`
   ADD PRIMARY KEY (`kode`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_dokter`
+-- AUTO_INCREMENT for table `jadwal_dokter`
 --
 ALTER TABLE `jadwal_dokter`
   MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `periksa`
+-- AUTO_INCREMENT for table `pasien`
 --
-ALTER TABLE `periksa`
-  MODIFY `id_periksa` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `pasien`
+  MODIFY `id_pasien` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `rekam_medis`
+-- AUTO_INCREMENT for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `periksa`
+--
+ALTER TABLE `periksa`
+  MODIFY `id_periksa` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `id_rm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36827929;
+  MODIFY `id_rm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36827930;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
