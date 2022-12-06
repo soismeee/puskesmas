@@ -9,7 +9,7 @@ Jadwal Dokter
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h6 style="color: #00f;"> Data Dokter </h6>
-            <a href="/daftardokter/tambahdokter" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah dokter</a>
+            <a href="/dokter/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah dokter</a>
         </div>
     </div>
     <!-- flasdata dengan alert -->
@@ -49,7 +49,7 @@ Jadwal Dokter
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- detail -->
-                                        <a href="/dokter/detaildokter/<?= $d['id_dokter']; ?>" class="btn btn-primary"><i class="fas fa-file"></i></a>
+                                        <a href="/dokter/detail/<?= $d['id_dokter']; ?>" class="btn btn-primary"><i class="fas fa-file"></i></a>
 
                                         <!-- edit -->
                                         <a href="/dokter/editdokter/<?= $d['id_dokter']; ?>" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
@@ -71,13 +71,13 @@ Jadwal Dokter
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/jadwaldokter/hapus/<?= $d['id_dokter']; ?>" method="get">
+                                                    <form action="/dokter/hapus/<?= $d['id_dokter']; ?>" method="get">
                                                         <div class="modal-body">
                                                             Apakah Anda Yakin Ingin Menggapus Data?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-warning">Hapus</button>
+                                                            <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
                                                         </div>
                                                     </form>
                                                 </div>

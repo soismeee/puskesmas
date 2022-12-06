@@ -8,12 +8,7 @@ class DokterModel extends Model
 {
     protected $table            = 'dokter';
     protected $primaryKey       = 'id_dokter';
-    protected $useAutoIncrement = false;
-    protected $insertID         = 0;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['id_pasien', 'id_pengguna', 'nama_dokter', 'alamat_dokter', 'no_tlp', 'jenis_poli', 'status'];
 
     public function getDokter($iddokter = false)
     {

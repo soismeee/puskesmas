@@ -14,48 +14,48 @@ Tambah jadwal Dokter
         <!-- menampilkan validasi -->
         <?= $validation->listErrors(); ?>
 
-        <form method="post" action="/jadwaldokter/simpan">
-            <div class="form-group row">
+        <form action="/dokter/simpan" method="post">
+            <?= csrf_field(); ?>
+            <!-- <div class="form-group row">
                 <label for="id_dokter" class="col-sm-2 col-form-label">Id Dokter</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control <?= ($validation->hasError('id_dokter')) ? 'is-invalid' : ''; ?>" id="id_dokter" name="id_dokter" autofocus value="<?= old('id_dokter'); ?> ">
                     <div id="id_dokterFeedback" class="invalid-feedback"> <?= $validation->getError('id_dokter'); ?>
                     </div>
                 </div>
-
-            </div>
+            </div> -->
             <div class="form-group row">
                 <label for="nama_dokter" class="col-sm-2 col-form-label">Nama dokter</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" placeholder="Masukan Nama dokter">
+                    <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" value="<?= old('nama_dokter'); ?>" placeholder="Masukan Nama dokter">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="alamat_dokter" class="col-sm-2 col-form-label">Alamat dokter</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="alamat_dokter" name="alamat_dokter" placeholder="Masukan Alamat dokter">
+                    <input type="text" class="form-control" id="alamat_dokter" name="alamat_dokter" value="<?= old('alamat_dokter'); ?>" placeholder="Masukan Alamat dokter">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="no_tlp" class="col-sm-2 col-form-label">No. Tlp</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="no_tlp" name="no_tlp" placeholder="Masukan Nomor Telepon">
+                    <input type="text" class="form-control" id="no_tlp" name="no_tlp" value="<?= old('no_tlp'); ?>" placeholder="Masukan Nomor Telepon">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-2"><label for="jenis_poli">Poli Klinik</label></div>
                 <div class="col-10">
                     <select name="jenis_poli" id="jenis_poli" class="form-control">
-                        <option value="Umum">Poli Umum</option>
-                        <option value="Gigi">Poli Gigi</option>
-                        <option value="KIA/KB">Poli KIA/KB</option>
+                        <option <?= old('jenis_poli') == "Umum" ? 'selected' : ''; ?> value="Umum">Poli Umum</option>
+                        <option <?= old('jenis_poli') == "Gigi" ? 'selected' : ''; ?> value="Gigi">Poli Gigi</option>
+                        <option <?= old('jenis_poli') == "KIA/KB" ? 'selected' : ''; ?> value="KIA/KB">Poli KIA/KB</option>
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="username" class="col-sm-2 col-form-label">Username</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukan Username">
+                    <input type="text" class="form-control" id="username" name="username" value="<?= old('username'); ?>" placeholder="Masukan Username">
                 </div>
             </div>
             <div class="form-group row">
@@ -65,20 +65,20 @@ Tambah jadwal Dokter
                 </div>
             </div>
             <div class="form-group row">
-                <label for="jadwal" class="col-sm-2 col-form-label">Status</label>
+                <label for="status" class="col-sm-2 col-form-label">Status</label>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="jadwal" id="jadwal" value="option1" checked>
-                            <label class="form-check-label" for="jadwal">
+                            <input class="form-check-input" type="radio" name="status" id="status" value="aktif" checked>
+                            <label class="form-check-label" for="status">
                                 Aktif
                             </label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="jadwal" id="jadwal" value="option2" checked>
-                            <label class="form-check-label" for="jadwal">
+                            <input class="form-check-input" type="radio" name="status" id="status" value="non-aktif" checked>
+                            <label class="form-check-label" for="status">
                                 Tidak Aktif
                             </label>
                         </div>
@@ -88,8 +88,8 @@ Tambah jadwal Dokter
             <div class="form-group row">
                 <div class="col-sm-10">
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="/jadwaldokter" class="btn btn-danger mr-2">Kembali</a>
-                        <button class="btn btn-success">Simpan</button>
+                        <a href="/dokter" class="btn btn-danger mr-2">Kembali</a>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </div>
             </div>

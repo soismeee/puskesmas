@@ -62,6 +62,7 @@ class Pasien extends BaseController
         session()->setFlashdata('pesan', 'Data Sudah Berhasil Ditambahkan');
         return redirect()->to('/pasien');
     }
+    
     public function tambah()
     {
         session();
@@ -93,6 +94,7 @@ class Pasien extends BaseController
 
         return view('Pasien/editpasien', $data);
     }
+    
     public function update($idpasien)
     {
 
