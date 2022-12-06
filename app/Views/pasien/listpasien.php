@@ -54,8 +54,6 @@ Daftar Pasien
                                         <!-- edit -->
                                         <a href="/pasien/editpasien/<?= $p['id_pasien']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>
 
-                                        <!-- pembayaran -->
-                                        <a href="/pasien/print/<?= $p['id_pasien']; ?>" class="btn btn-md btn-secondary"><i class="fas fa-print"></i></a>
                                         <!-- button hapus -->
                                         <a href="#" class=" d-inline btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $p['id_pasien'] ?>">
                                             <i class="fas fa-trash"></i>
