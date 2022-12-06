@@ -15,21 +15,39 @@ class periksa extends BaseController
     }
     public function index()
     {
-        $data = [
-            'title' => 'Periksa',
-            'button' => 1,
-            'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->findAll()
-        ];
-
+        $session = session();
+        if($session->get('hak_akses') == "admin"){
+            $data = [
+                'title' => 'Periksa',
+                'button' => 1,
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->findAll()
+            ];    
+        }else{
+            $data = [
+                'title' => 'Periksa',
+                'button' => 1,
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->where('periksa.id_pasien', $session->get('id_user'))->findAll()
+            ];
+        }
+        
         return view('periksa/periksa', $data);
     }
 
     public function selesai(){
-        $data = [
-            'title' => 'Data Selesai',
-            'button' => 0,
-            'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->findAll()
-        ];
+        $session = session();
+        if($session->get('hak_akses') == "admin"){
+            $data = [
+                'title' => 'Periksa',
+                'button' => 0,
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->findAll()
+            ];    
+        }else{
+            $data = [
+                'title' => 'Periksa',
+                'button' => 0,
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->where('periksa.id_pasien', $session->get('id_user'))->findAll()
+            ];
+        }
 
         return view('periksa/periksa', $data);
     }
@@ -129,22 +147,19 @@ class periksa extends BaseController
             'title' => 'Edit periksa',
             'periksa' => $this->periksaModel->getPeriksa($idperiksa)
         ];
-
+        // var_dump($data);
         return view('periksa/editperiksa', $data);
     }
 
     public function update($idperiksa)
     {
-
         $this->periksaModel->update($idperiksa, [
-            // 'tanggal_daftar' => $this->request->getPost('tanggal_daftar'),
-            'id_periksa' => $this->request->getPost('id_periksa'),
-            'id_periksa' => $this->request->getPost('id_periksa'),
+            'tanggal_periksa' => $this->request->getPost('tanggal_periksa'),
             'waktu_daftar' => $this->request->getPost('waktu_daftar'),
             'nama_poli_periksa' => $this->request->getPost('nama_poli_periksa'),
-            // 'nama_poli_periksa' => $this->request->getPost('nama_poli_periksa')
+            'status' => $this->request->getPost('status')
         ]);
 
-        return redirect()->to('/periksa');
+        return redirect()->to('/periksa/selesai');
     }
 }

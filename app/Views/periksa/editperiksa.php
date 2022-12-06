@@ -10,18 +10,18 @@ Edit Pemeriksaan Pasien
         <h2>Edit Data Pemeriksaan Pasien</h2>
     </div>
     <div class="card-body">
-
         <form method="post" action="/periksa/update/<?= $periksa['id_periksa']; ?>">
             <div class="form-group row">
                 <label for="id_periksa" class="col-sm-2 col-form-label">Id Periksa</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id_periksa" name="id_periksa" placeholder="Masukan Nama Pasien" value="<?= $periksa['id_periksa']; ?>">
+                    <input type="text" class="form-control" id="id_periksa" name="id_periksa" placeholder="Masukan Nama Pasien" value="<?= $periksa['id_periksa']; ?>" readonly>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="id_pasien" class="col-sm-2 col-form-label">Id Pasien</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id_pasien" name="id_pasien" placeholder="Masukan Nama Pasien" value="<?= $periksa['id_pasien']; ?>">
+                    <input type="text" class="form-control" value="<?= $periksa['nama_pasien']; ?>" readonly>
+                    <input type="hidden" id="id_pasien" name="id_pasien" value="<?= $periksa['id_pasien']; ?>">
                 </div>
             </div>
             <div class="form-group row">
@@ -55,6 +55,32 @@ Edit Pemeriksaan Pasien
                     </select>
                 </div>
             </div>
+            <?php if(session()->get('hak_akses') == "admin") : ?>
+            <hr />
+            <h4>Jika sudah melakukan pemeriksaan, ganti status menjadi selesai</h4>
+            <div class="form-group row">
+                <div class="col-2"><label for="status">Status periksa</label></div>
+                <div class="col-10">
+                    <select name="status" id="status" class="form-control">
+                        <option <?= $periksa['status'] == "proses" ? 'selected' : '' ?> value="proses">Proses</option>
+                        <option <?= $periksa['status'] == "selesai" ? 'selected' : '' ?> value="selesai">Selesai</option>
+                    </select>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if(session()->get('hak_akses') == "dokter") : ?>
+            <hr />
+            <h4>Jika sudah melakukan pemeriksaan, ganti status menjadi selesai</h4>
+            <div class="form-group row">
+                <div class="col-2"><label for="status">Status periksa</label></div>
+                <div class="col-10">
+                    <select name="status" id="status" class="form-control">
+                        <option <?= $periksa['status'] == "proses" ? 'selected' : '' ?> value="proses">Proses</option>
+                        <option <?= $periksa['status'] == "selesai" ? 'selected' : '' ?> value="selesai">Selesai</option>
+                    </select>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="form-group row">
                 <div class="col-sm-10">
                     <div class="d-flex justify-content-between mt-4">

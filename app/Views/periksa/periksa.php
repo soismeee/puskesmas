@@ -26,19 +26,21 @@ Periksa
                 <thead>
                     <tr>
                         <th width="5%" scope="col">No.Urut</th>
-                        <th width="25%" scope="col">Nama Pasien</th>
+                        <th width="20%" scope="col">Nama Pasien</th>
                         <th width="15%" scope="col">Tanggal Periksa</th>
                         <th width="10%" scope="col">Shift</th>
                         <th width="10%" scope="col">Waktu Pendaftaran</th>
-                        <th width="15%" scope="col">Jenis Poli</th>
+                        <th width="10%" scope="col">Jenis Poli</th>
+                        <th width="10%" scope="col">Status</th>
+                        <?php if($button == 1) : ?>
                         <th width="10%" scope="col">Aksi</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $i = 1;
-                    foreach ($periksa as $a) :
-                    ?>
+                    foreach ($periksa as $a) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $a['nama_pasien']; ?></td>
@@ -47,7 +49,18 @@ Periksa
                             <td><?= $a['waktu_daftar']; ?></td>
                             <td><?= $a['nama_poli_periksa']; ?></td>
                             <td>
-
+                                <?php if($a['status'] == "selesai") : ?>
+                                    <span class="badge badge-success">
+                                        Selesai
+                                    </span>    
+                                <?php else : ?>
+                                    <span class="badge badge-info">
+                                        Proses
+                                    </span>    
+                                <?php endif; ?>
+                            </td>
+                            <?php if($button == 1) : ?>
+                            <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- edit -->
@@ -81,11 +94,11 @@ Periksa
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     
                                 </div>
                             </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
