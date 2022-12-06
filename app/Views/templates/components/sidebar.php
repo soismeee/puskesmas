@@ -20,12 +20,13 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Menu Utama
+    </div>
+
     <!-- HAK AKSES ADMIN / PETUGAS -->
     <?php if (session()->get('hak_akses') == 'admin') : ?>
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Menu Utama
-        </div>
 
         <!-- Nav Item - Pemeriksaan Menu -->
         <li class="nav-item">
@@ -88,11 +89,74 @@
                 <span>Laporan</span></a>
         </li>
     <?php endif; ?>
-    <?php if (session()->get('hak_akses') == 'pasien') : ?>
+    
+    <!-- HAK AKSES DOKTER -->
+    <?php if (session()->get('hak_akses') == 'admin') : ?>
+
+        <!-- Nav Item - Pemeriksaan Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/pasien">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Pasien</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/dokter">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Dokter</span></a>
+        </li>
+
+        <!-- Nav Item - Periksa Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-clipboard"></i>
+                <span>Periksa</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Sub menu periksa:</h6>
+                    <a class="collapse-item" href="/periksa">Proses</a>
+                    <a class="collapse-item" href="/periksa/selesai">Selesai</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pemeriksaan Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/datarm">
+                <i class="fas fa-fw fa-stethoscope"></i>
+                <span>Rekam Medis</span></a>
+        </li>
+
+        <!-- Nav Item - Resep Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/resep">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Resep & Pembayaran</span></a>
+        </li>
+
         <!-- Heading -->
         <div class="sidebar-heading">
-            Menu Utama
+            Menu Tambahan
         </div>
+
+        <!-- Nav Item - Kelola Akun Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/datapengguna">
+                <i class="fas fa-fw fa-calendar-week"></i>
+                <span>Pengguna</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="/laporan">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Laporan</span></a>
+        </li>
+    <?php endif; ?>
+    
+    <!-- HAK AKSES PASIEN -->
+    <?php if (session()->get('hak_akses') == 'pasien') : ?>
 
         <!-- Nav Item - Periksa Menu -->
         <li class="nav-item">
