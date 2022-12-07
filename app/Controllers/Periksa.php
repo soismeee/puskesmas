@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DokterModel;
 use App\Models\PasienModel;
 use App\Models\PeriksaModel;
 
@@ -12,6 +13,7 @@ class periksa extends BaseController
         $this->periksaModel = new periksaModel();
         $this->PenggunaModel = new PeriksaModel();
         $this->PasienModel = new PasienModel();
+        $this->DokterModel = new DokterModel();
     }
     public function index()
     {
@@ -161,5 +163,17 @@ class periksa extends BaseController
         ]);
 
         return redirect()->to('/periksa/selesai');
+    }
+
+    public function createrm($idperiksa){
+        session();
+        $data = [
+            'title' => 'Simpan Rekam Medis',
+            'validation' => \Config\Services::validation(),
+            'periksa' => $this->periksaModel->getPeriksa($idperiksa),
+            'listDokter'   => $this->DokterModel->getDokter()
+        ];
+
+        return view('periksa/tambahrm', $data);
     }
 }

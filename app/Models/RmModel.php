@@ -18,4 +18,24 @@ class RmModel extends Model
         }
         return $this->where(['id_rm' => $idrm])->first();
     }
+
+    public function generateCode(){
+        $builder = $this->table('rekam_medis');
+        $builder->selectMax('id_rm', 'idMax');
+        $query = $builder->get();
+
+        if($query->getNumRows() > 0){
+            foreach ($query->getResult() as $key) {
+                $kd = '';
+                $ambildata = substr($key->idMax, -4);
+                $increment = intval($ambildata)+1;
+
+                $kd = sprintf('%04s', $increment);
+            }
+        } else{
+            $kd = '0001';
+        }
+
+        return 'RM'.$kd;
+    }
 }

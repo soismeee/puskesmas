@@ -32,9 +32,7 @@ Periksa
                         <th width="10%" scope="col">Waktu Pendaftaran</th>
                         <th width="10%" scope="col">Jenis Poli</th>
                         <th width="10%" scope="col">Status</th>
-                        <?php if($button == 1) : ?>
                         <th width="10%" scope="col">Aksi</th>
-                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +57,16 @@ Periksa
                                     </span>    
                                 <?php endif; ?>
                             </td>
-                            <?php if($button == 1) : ?>
+                            <?php if($a['status'] == "selesai") : ?>
+                                <td>
+                                <div class="d-flex justify-content-center">
+                                    <div class="btn-group">
+                                        <!-- edit -->
+                                        <a href="/periksa/createrm/<?= $a['id_periksa']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice"></i></a>
+                                    </div>
+                                </div>
+                                </td>
+                            <?php else : ?>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">

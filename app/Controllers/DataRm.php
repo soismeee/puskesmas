@@ -89,4 +89,8 @@ class DataRm extends BaseController
 
         return redirect()->to('/datarm');
     }
+
+    public function autocode(){
+        return json_encode($this->RmModel->generateCode());
+    }
 }
