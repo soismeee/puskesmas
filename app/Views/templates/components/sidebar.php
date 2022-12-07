@@ -91,19 +91,13 @@
     <?php endif; ?>
     
     <!-- HAK AKSES DOKTER -->
-    <?php if (session()->get('hak_akses') == 'admin') : ?>
+    <?php if (session()->get('hak_akses') == 'dokter') : ?>
 
         <!-- Nav Item - Pemeriksaan Menu -->
         <li class="nav-item">
             <a class="nav-link" href="/pasien">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Pasien</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/dokter">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Dokter</span></a>
         </li>
 
         <!-- Nav Item - Periksa Menu -->
