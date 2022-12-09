@@ -75,8 +75,8 @@ Daftar Pasien
                                                             Apakah Anda Yakin Ingin Menggapus Data?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                                                            <button type="submit" class="btn btn-warning">Hapus</button>
+                                                            <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -93,4 +93,14 @@ Daftar Pasien
     </div>
 </div>
 
+<?= $this->endSection(); ?>
+
+<?= $this->section('js'); ?>
+    <script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+            });
+        }, 3000);
+    </script>
 <?= $this->endSection(); ?>

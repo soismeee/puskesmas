@@ -7,7 +7,7 @@ use App\Models\PasienModel;
 use App\Models\RmModel;
 use Dompdf\Dompdf;
 
-class Pasien extends BaseController
+class Konsultasi extends BaseController
 {
     public function __construct()
     {
@@ -18,11 +18,11 @@ class Pasien extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Daftar Pasien',
-            'listpasien' => $this->PasienModel->getPasien()
+            'title' => 'Data Konsultasi',
+            'konsultasi' => $this->PasienModel->getPasien()
         ];
 
-        return view('pasien/listpasien', $data);
+        return view('konsultasi/datakonsultasi', $data);
     }
 
     public function detail($id)

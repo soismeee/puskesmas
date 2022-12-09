@@ -171,7 +171,8 @@ class periksa extends BaseController
             'title' => 'Simpan Rekam Medis',
             'validation' => \Config\Services::validation(),
             'periksa' => $this->periksaModel->getPeriksa($idperiksa),
-            'listDokter'   => $this->DokterModel->getDokter()
+            'listDokter'   => $this->DokterModel->getDokter(),
+            'listPasien'   => $this->PasienModel->getPasien()
         ];
 
         return view('periksa/tambahrm', $data);

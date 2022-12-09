@@ -61,7 +61,8 @@ Periksa
                                 <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
-                                        <!-- edit -->
+                                        <?php if('s') ?>
+                                        <!-- buat rekam medis -->
                                         <a href="/periksa/createrm/<?= $a['id_periksa']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice"></i></a>
                                     </div>
                                 </div>
@@ -114,4 +115,14 @@ Periksa
     </div>
 </div>
 
+<?= $this->endSection(); ?>
+
+<?= $this->section('js'); ?>
+    <script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+            });
+        }, 3000);
+    </script>
 <?= $this->endSection(); ?>

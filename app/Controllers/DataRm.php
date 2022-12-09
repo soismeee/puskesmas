@@ -12,12 +12,14 @@ class DataRm extends BaseController
     public function __construct()
     {
         $this->RmModel = new RmModel();
+        $this->PasienModel = new PasienModel();
+        $this->DokterModel = new DokterModel();
     }
     public function index()
     {
         $data = [
             'title' => 'Pemeriksaan',
-            'rekammedis' => $this->RmModel->getRekamMedis()
+            'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll()
         ];
 
         return view('rekammedis/datarm', $data);
@@ -25,13 +27,14 @@ class DataRm extends BaseController
     public function simpan()
     {
         $this->RmModel->insert([
+            'id_rm' => $this->request->getVar('id_rm'),
             'tanggal_periksa' => $this->request->getVar('tanggal_periksa'),
             'id_pasien' => $this->request->getVar('id_pasien'),
             'id_dokter' => $this->request->getVar('id_dokter'),
             'data_subjektif' => $this->request->getVar('data_subjektif'),
             'data_objektif' => $this->request->getVar('data_objektif'),
             'diagnosa' => $this->request->getVar('diagnosa'),
-            'planning' => $this->request->getVar('planning')
+            'planning' => $this->request->getVar('planning'),
         ]);
 
         //flasdata pesan simpan data
@@ -40,18 +43,27 @@ class DataRm extends BaseController
     }
     public function tambahrm()
     {
-        $dokterModel = new DokterModel();
-        $pasienModel = new PasienModel();
-
         session();
         $data = [
             'title' => 'Simpan Rekam Medis',
             'validation' => \Config\Services::validation(),
-            'listPasien' => $pasienModel->getPasien(),
-            'listDokter'   => $dokterModel->getDokter()
+            'listPasien' => $this->PasienModel->getPasien(),
+            'listDokter'   => $this->DokterModel->getDokter()
         ];
 
-        return view('rekammedis/tambahrm', $data);
+        return view('periksa/tambahrm', $data);
+    }
+
+    public function tambahrbp(){
+        session();
+        $data = [
+            'title' => 'Tambah Resep',
+            'validation' => \Config\Services::validation(),
+            'listDokter' => $this->DokterModel->findAll(),
+            'listPasien' => $this->PasienModel->findAll()
+        ];
+
+        return view('resep/tambah', $data);
     }
 
     public function hapus($idrm)
@@ -69,22 +81,22 @@ class DataRm extends BaseController
 
         $data = [
             'title' => 'Edit Rekam Medis',
-            'rekammedis' => $this->RmModel->getRekamMedis($idrm)
+            'rekammedis' => $this->RmModel->getRekamMedis($idrm),
+            'listDokter'   => $this->DokterModel->getDokter()
         ];
 
         return view('rekammedis/editrm', $data);
     }
-    public function updaterm($idrm)
+    public function updaterm($id_rm)
     {
 
-        $this->RmModel->update($idrm, [
-            'id_pasien' => $this->request->getPost('id_pasien'),
+        $this->RmModel->update($id_rm, [
+            'tanggal_periksa' => $this->request->getPost('tanggal_periksa'),
             'id_dokter' => $this->request->getPost('id_dokter'),
             'data_subjektif' => $this->request->getPost('data_subjektif'),
             'data_objektif' => $this->request->getPost('data_objektif'),
             'diagnosa' => $this->request->getPost('diagnosa'),
-            'planning' => $this->request->getPost('planning'),
-            'tanggal_periksa' => $this->request->getPost('tanggal_periksa')
+            'planning' => $this->request->getPost('planning')
         ]);
 
         return redirect()->to('/datarm');

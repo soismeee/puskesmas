@@ -35,6 +35,13 @@
                 <span>Pasien</span></a>
         </li>
 
+        <!-- Nav Item - Penyakit Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/penyakit">
+            <i class="fas fa-bug"></i>
+                <span>Penyakit</span></a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="/dokter">
                 <i class="fas fa-fw fa-user"></i>
@@ -100,6 +107,13 @@
                 <span>Pasien</span></a>
         </li>
 
+        <!-- Nav Item - Penyakit Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/penyakit">
+                <i class="fas fa-bug"></i>
+                <span>Penyakit</span></a>
+        </li>
+
         <!-- Nav Item - Periksa Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -134,13 +148,6 @@
             Menu Tambahan
         </div>
 
-        <!-- Nav Item - Kelola Akun Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="/datapengguna">
-                <i class="fas fa-fw fa-calendar-week"></i>
-                <span>Pengguna</span></a>
-        </li>
-
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/laporan">
@@ -172,6 +179,13 @@
             <a class="nav-link" href="/datarm">
                 <i class="fas fa-fw fa-stethoscope"></i>
                 <span>Rekam Medis</span></a>
+        </li>
+
+        <!-- Nav Item - Pemeriksaan Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/konsultasi">
+            <i class="fas fa-headset"></i>
+                <span>Konsultasi</span></a>
         </li>
     <?php endif; ?>
     <!-- Divider -->

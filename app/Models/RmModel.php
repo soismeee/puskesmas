@@ -9,14 +9,14 @@ class RmModel extends Model
 {
     protected $table = 'rekam_medis';
     protected $primaryKey = 'id_rm';
-    protected $allowedFields = ['id_pasien', 'id_dokter', 'data_subjektif', 'data_objektif', 'diagnosa', 'planning', 'tanggal_periksa'];
+    protected $allowedFields = ['id_rm','id_pasien', 'id_dokter', 'data_subjektif', 'data_objektif', 'diagnosa', 'planning', 'tanggal_periksa'];
 
     public function getRekamMedis($idrm = false)
     {
         if ($idrm == false) {
             return $this->findAll();
         }
-        return $this->where(['id_rm' => $idrm])->first();
+        return $this->where(['id_rm' => $idrm])->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->first();
     }
 
     public function generateCode(){

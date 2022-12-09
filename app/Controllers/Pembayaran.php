@@ -16,10 +16,10 @@ class Pembayaran extends BaseController
     {
         $data = [
             'title' => 'Pembayaran',
-            'nota' => $this->PembayaranModel->getPembayaran()
+            'pembayaran' => $this->PembayaranModel->getPembayaran()
         ];
 
-        return view('pembayaran/nota', $data);
+        return view('nota/pembayaran', $data);
     }
     public function simpan()
     {

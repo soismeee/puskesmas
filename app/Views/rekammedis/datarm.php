@@ -42,8 +42,8 @@ Daftar Rekam Medis Pasien
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $r['tanggal_periksa']; ?></td>
-                            <td><?= $r['id_pasien']; ?></td>
-                            <td><?= $r['id_dokter']; ?></td>
+                            <td><?= $r['nama_pasien']; ?></td>
+                            <td><?= $r['nama_dokter']; ?></td>
                             <td><?= $r['data_subjektif']; ?></td>
                             <td><?= $r['data_objektif']; ?></td>
                             <td><?= $r['diagnosa']; ?></td>
@@ -52,6 +52,7 @@ Daftar Rekam Medis Pasien
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- edit -->
+                                        <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice"></i></a>
                                         <a href="/datarm/editrm/<?= $r['id_rm']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>
                                         <!-- button hapus -->
                                         <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
@@ -93,4 +94,14 @@ Daftar Rekam Medis Pasien
     </div>
 </div>
 
+<?= $this->endSection(); ?>
+
+<?= $this->section('js'); ?>
+    <script>
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+            });
+        }, 3000);
+    </script>
 <?= $this->endSection(); ?>

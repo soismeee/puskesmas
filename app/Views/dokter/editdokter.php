@@ -67,7 +67,7 @@ Edit Dokter
             <div class="form-group row">
                 <div class="col-sm-10">
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="/jadwaldokter" class="btn btn-danger mr-2">Kembali</a>
+                        <a href="/dokter" class="btn btn-danger mr-2">Kembali</a>
                         <button class="btn btn-success">Simpan</button>
                     </div>
                 </div>

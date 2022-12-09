@@ -31,7 +31,7 @@ Tambah Data Rekam Medis
                     <select name="id_pasien" id="id_pasien" class="form-control">
                         <option value="" selected disabled>Pilih Pasien</option>
                         <?php foreach ($listPasien as $pasien) : ?>
-                            <option value="<?= $pasien['id_pasien']; ?>"><?= $pasien['nama_pasien']; ?></option>
+                            <option <?= $periksa['id_pasien'] == $pasien['id_pasien'] ? "selected" : '' ?> value="<?= $pasien['id_pasien']; ?>"><?= $pasien['nama_pasien']; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <!-- <input type="text" class="form-control" id="id_pasien" name="id_pasien" placeholder="Masukan Id Pasien"> -->
