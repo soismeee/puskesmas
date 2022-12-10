@@ -18,21 +18,26 @@ class periksa extends BaseController
     public function index()
     {
         $session = session();
-        if($session->get('hak_akses') == "admin"){
-            $data = [
-                'title' => 'Periksa',
-                'button' => 1,
-                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->findAll()
-            ];    
-        }else{
+        if($session->get('hak_akses') == "pasien"){
             $data = [
                 'title' => 'Periksa',
                 'button' => 1,
                 'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->where('periksa.id_pasien', $session->get('id_user'))->findAll()
             ];
+            return view('periksa/periksa_pasien', $data);
+        }else{
+            $data = [
+                'title' => 'Periksa',
+                'button' => 1,
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->findAll()
+            ];
+            return view('periksa/periksa', $data);                
         }
         
-        return view('periksa/periksa', $data);
+    }
+
+    public function autocode(){
+        return json_encode($this->periksaModel->generateCode());
     }
 
     public function selesai(){
@@ -100,12 +105,13 @@ class periksa extends BaseController
             return redirect()->to('/periksa/tambahperiksa')->withInput()->with('validation', $validation);
         }
         $this->periksaModel->insert([
+            'id_periksa' => $this->request->getVar('id_periksa'),
             'id_pasien' => $this->request->getVar('id_pasien'),
             'tanggal_periksa' => $this->request->getVar('tanggal_periksa'),
             'waktu_daftar' => date('Y-m-d h:i:sa'),
             'shift' => $this->request->getVar('shift'),
             'nama_poli_periksa' => $this->request->getVar('nama_poli_periksa'),
-            // 'nama_poli_periksa' => $this->request->getVar('nama_poli_periksa')
+            'status' => "proses"
         ]);
 
         // $this->PenggunaModel->insert([

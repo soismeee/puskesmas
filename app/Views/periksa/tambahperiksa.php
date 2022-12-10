@@ -18,9 +18,21 @@ Tambah Pasien
             <div class="form-group row">
                 <label for="id_periksa" class="col-sm-2 col-form-label">Id Periksa</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id_periksa" name="id_periksa">
+                    <input type="text" class="form-control" id="id_periksa" name="id_periksa" readonly>
                 </div>
             </div>
+
+            <!-- Kondisi jika yang login adalah pasien -->
+            <?php if(session()->get('hak_akses') == "pasien"): ?>
+                <div class="form-group row">
+                <label for="id_pasien" class="col-sm-2 col-form-label">Data Pasien</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="<?= session()->get('nama'); ?>" readonly>
+                    <input type="hidden" name="id_pasien" id="id_pasien" value="<?= session()->get('id_pasien'); ?>">
+                </div>
+            </div>
+            <!-- kondisi jika yang login adalah admin atau dokter -->
+            <?php else : ?>
             <div class="form-group row">
                 <label for="id_pasien" class="col-sm-2 col-form-label">Data Pasien</label>
                 <div class="col-sm-10">
@@ -32,6 +44,8 @@ Tambah Pasien
                     </select>
                 </div>
             </div>
+            <?php endif; ?>
+            
             <div class="form-group row">
                 <div class="col-2"><label for="shift">Tanggal Periksa</label></div>
                 <div class="col-10">
@@ -73,5 +87,19 @@ Tambah Pasien
             </div>
     </div>
 
+<?= $this->endSection(); ?>
 
-    <?= $this->endSection(); ?>
+<?= $this->section('js'); ?>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: "<?= site_url('periksa/autocode'); ?>",
+            type: "GET",
+            success: function(hasil){
+                var kode = $.parseJSON(hasil);
+                $('#id_periksa').val(kode);
+            }
+        });
+    });
+</script>
+<?= $this->endSection(); ?>

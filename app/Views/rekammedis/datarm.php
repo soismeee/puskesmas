@@ -9,7 +9,7 @@ Daftar Rekam Medis Pasien
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h6 style="color: #00f;">Data Rekam Medis Pasien Klinik Dharma Mulia</h6>
-            <a href="/datarm/tambahrm" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah Rekam Medis</a>
+            <!-- <a href="/datarm/tambahrm" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah Rekam Medis</a> -->
         </div>
     </div>
     <!-- flasdata dengan alert -->
@@ -51,13 +51,17 @@ Daftar Rekam Medis Pasien
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
-                                        <!-- edit -->
-                                        <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice"></i></a>
-                                        <a href="/datarm/editrm/<?= $r['id_rm']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        <!-- button hapus -->
-                                        <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <?php if(session()->get('hak_akses') == "pasien") : ?>
+                                            <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-success"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a>
+                                        <?php else : ?> 
+                                            <!-- edit -->
+                                            <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice" title="Tambah Resep dan pembayaran"></i></a>
+                                            <a href="/datarm/editrm/<?= $r['id_rm']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt" title="edit rekam medis"></i></a>
+                                            <!-- button hapus -->
+                                            <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
+                                                <i class="fas fa-trash" title="hapus data rekam medis"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="hapus">
                                         <!-- Button hapus -->

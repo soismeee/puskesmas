@@ -38,6 +38,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Dashboard::index', ['filter' => 'authLogin']);
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'authLogin']);
 $routes->get('/login', 'Login::index', ['filter' => 'authLogout']);
+$routes->get('/auth', 'Login::admin', ['filter' => 'authLogout']);
 //$routes->get('/pasien/daftarpasien', 'Pasien::daftarpasien');
 // $routes->get('/pasien/tambahpasien', 'DaftarPasien::tambahpasien');
 //$routes->get('/pasien/datapasien', 'DaftarPasien::datapasien');

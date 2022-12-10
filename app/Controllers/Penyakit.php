@@ -45,7 +45,7 @@ class Penyakit extends BaseController
             $validation = \Config\Services::validation();
             return redirect()->to('/penyakit/tambah')->withInput()->with('validation', $validation);
         }
-        $this->PasienModel->insert([
+        $this->PenyakitModel->insert([
             'nama_penyakit' => $this->request->getVar('nama_penyakit'),
             'ket_penyakit' => $this->request->getVar('ket_penyakit')
         ]);
@@ -66,6 +66,29 @@ class Penyakit extends BaseController
         return view('penyakit/tambahpenyakit', $data);
     }
 
+    public function editpenyakit($idpenyakit)
+    {
+        $data = [
+            'title' => 'Edit Penyakit',
+            'validation' => \Config\Services::validation(),
+            'penyakit' => $this->PenyakitModel->getPenyakit($idpenyakit)
+        ];
+
+        return view('penyakit/editpenyakit', $data);
+    }
+    
+    public function update($idpenyakit)
+    {
+
+        $this->PenyakitModel->update($idpenyakit, [
+            'nama_penyakit' => $this->request->getPost('nama_penyakit'),
+            'ket_penyakit' => $this->request->getPost('ket_penyakit'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Data Sudah Berhasil diubah');
+        return redirect()->to('/penyakit');
+    }
+    
     public function hapus($idpenyakit)
     {
         $this->PenyakitModel->delete(['id_penyakit' => $idpenyakit]);
@@ -75,30 +98,7 @@ class Penyakit extends BaseController
 
         return redirect()->to('/penyakit');
     }
-
-    public function editpasien($idpenyakit)
-    {
-        $data = [
-            'title' => 'Edit Penyakit',
-            'validation' => \Config\Services::validation(),
-            'listpenyakit' => $this->PenyakitModel->getPasien($idpenyakit)
-        ];
-
-        return view('penyakit/editpenyakit', $data);
-    }
     
-    public function update($idpasien)
-    {
-
-        $this->PasienModel->update($idpasien, [
-            'nama_penyakit' => $this->request->getPost('nama_penyakit'),
-            'ket_penyakit' => $this->request->getPost('ket_penyakit'),
-        ]);
-
-        session()->setFlashdata('pesan', 'Data Sudah Berhasil diubah');
-        return redirect()->to('/penyakit');
-    }
-
     public function print($idPasien)
     {
         $pasien = $this->PasienModel->getPasien($idPasien);

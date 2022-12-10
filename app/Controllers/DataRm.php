@@ -65,6 +65,19 @@ class DataRm extends BaseController
 
         return view('resep/tambah', $data);
     }
+    
+    public function lihatrbp(){
+        session();
+        $data = [
+            'title' => 'Tambah Resep',
+            'validation' => \Config\Services::validation(),
+            'listDokter' => $this->DokterModel->findAll(),
+            'listPasien' => $this->PasienModel->findAll()
+        ];
+
+        return view('resep/lihatrp', $data);
+    }
+
 
     public function hapus($idrm)
     {

@@ -17,10 +17,14 @@ class Login extends Controller
     public function index()
     {
         // halaman login
-        
         return view('auth/login');
     }
 
+    public function admin()
+    {
+        // halaman login
+        return view('auth/login_admin');
+    }
 
     public function auth()
     {
@@ -36,18 +40,34 @@ class Login extends Controller
             if (empty($err)) {
                 $pengguna = new DataPenggunaModel();
                 $dataPengguna = $pengguna->where("username", $username)->first();
+                
                 if ($dataPengguna['password'] != md5($password)) {
                     $err = "Username atau password salah!!";
                 }
             }
 
             if (empty($err)) {
-                $dataSesi = [
-                    'id_user' => $dataPengguna['id_user'],
-                    'nama' => $dataPengguna['nama'],
-                    'username' => $dataPengguna['username'],
-                    'hak_akses' => $dataPengguna['hak_akses'],
-                ];
+                if ($dataPengguna['hak_akses'] == "pasien") {
+                    // kodisi dimana user yang login adalah pasien
+                    $pasien = new PasienModel();
+                    $dataPasien = $pasien->where("id_pengguna", $dataPengguna['id_user'])->first();
+                    $dataSesi = [
+                        'id_user' => $dataPengguna['id_user'],
+                        'id_pasien' => $dataPasien['id_pasien'], // mengambil data id pasien
+                        'nama' => $dataPengguna['nama'],
+                        'username' => $dataPengguna['username'],
+                        'hak_akses' => $dataPengguna['hak_akses'],
+                    ];
+                
+                }else{
+                    // kondisi dimana user yang login ada admin atau dokter
+                    $dataSesi = [
+                        'id_user' => $dataPengguna['id_user'],
+                        'nama' => $dataPengguna['nama'],
+                        'username' => $dataPengguna['username'],
+                        'hak_akses' => $dataPengguna['hak_akses'],
+                    ];
+                }
                 session()->set($dataSesi);
                 return redirect()->to('Dashboard');
             }

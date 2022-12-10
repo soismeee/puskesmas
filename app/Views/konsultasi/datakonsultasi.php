@@ -1,14 +1,14 @@
 <?= $this->extend('templates/main'); ?>
 
 <?= $this->section('title'); ?>
-Daftar penyakit
+Konsultasi pasien
 <?= $this->endSection(); ?>
 
 <?= $this->section('content'); ?>
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between">
-            <h6 style="color: #00f;"> Data penyakit </h6>
+            <h6 style="color: #00f;"> Data konsultasi </h6>
             <a href="/konsultasi/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Buat konsultasi baru</a>
         </div>
     </div>

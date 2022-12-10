@@ -38,13 +38,10 @@ Daftar penyakit
                             <td><?= $i++; ?></td>
                             <td><?= $p['id_penyakit']; ?></td>
                             <td><?= $p['nama_penyakit']; ?></td>
-                            <td><?= $p['key_penyakit']; ?></td>
+                            <td><?= $p['ket_penyakit']; ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
-                                        <!-- detail -->
-                                        <a href="/penyakit/detail/<?= $p['id_penyakit']; ?>" class="btn btn-md btn-info"><i class="fas fa-file"></i></a>
-
                                         <!-- edit -->
                                         <a href="/penyakit/editpenyakit/<?= $p['id_penyakit']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>
 
