@@ -15,19 +15,19 @@ Edit Pemeriksaan Pasien
             <div class="form-group row">
                 <label for="kode" class="col-sm-2 col-form-label">Kode</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="kode" name="kode">
+                    <input type="text" class="form-control" id="kode" name="kode" value="<?= $resep['kode']; ?>" readonly>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="tanggal" name="tanggal">
+                    <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= $resep['tanggal']; ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="resep" class="col-sm-2 col-form-label">Resep</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="resep" name="resep">
+                    <input type="text" class="form-control" id="resep" name="resep" value="<?= $resep['resep']; ?>">
                 </div>
             </div>
             <div class="form-group row">
@@ -36,7 +36,7 @@ Edit Pemeriksaan Pasien
                     <select name="id_dokter" id="id_dokter" class="form-control">
                         <option value="" selected disabled>Pilih Dokter</option>
                         <?php foreach ($listDokter as $dokter) : ?>
-                            <option value="<?= $dokter['id_dokter']; ?>"><?= $dokter['nama_dokter']; ?></option>
+                            <option <?= $resep['id_dokter'] == $dokter['id_dokter'] ? "selected" : ""; ?> value="<?= $dokter['id_dokter']; ?>"><?= $dokter['nama_dokter']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -47,28 +47,27 @@ Edit Pemeriksaan Pasien
                     <select name="id_pasien" id="id_pasien" class="form-control">
                         <option value="" selected disabled>Pilih Pasien</option>
                         <?php foreach ($listPasien as $pasien) : ?>
-                            <option value="<?= $pasien['id_pasien']; ?>"><?= $pasien['nama_pasien']; ?></option>
+                            <option <?= $resep['id_pasien'] == $pasien['id_pasien'] ? "selected" : ""; ?> value="<?= $pasien['id_pasien']; ?>"><?= $pasien['nama_pasien']; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <!-- <input type="text" class="form-control" id="id_pasien" name="id_pasien" placeholder="Masukan Id Pasien"> -->
                 </div>
             </div>
             <div class="form-group row">
                 <label for="umur" class="col-sm-2 col-form-label">Umur</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="umur" name="umur" placeholder="">
+                    <input type="text" class="form-control" id="umur" name="umur" value="<?= $resep['umur']; ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="alamat_pasien" class="col-sm-2 col-form-label">Alamat</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="alamat_pasien" name="alamat_pasien"></textarea>
+                    <input type="text" class="form-control" id="alamat_pasien" name="alamat_pasien" value="<?= $resep['alamat_pasien']; ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="penerima" class="col-sm-2 col-form-label">Penerima</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="penerima" name="penerima" placeholder="">
+                    <input type="text" class="form-control" id="penerima" name="penerima" value="<?= $resep['penerima']; ?>">
                 </div>
             </div>
             <div class="form-group row">

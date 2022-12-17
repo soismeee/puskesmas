@@ -19,27 +19,42 @@ Klinik Dharma Mulia
         </div>
     <?php endif; ?>
     <div class="card-body">
+        <div class="col-lg-12 mb-3">
+            <form action="/laporan/bulan" method="post">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="month" name="bulan" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary">Print Laporan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-bordered" id="datatables">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Id Penyakit</th>
-                        <th scope="col">Nama Penyakit</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col">Id Periksa</th>
+                        <th scope="col">Nama Pasien</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Poli</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $i = 1;
-                    foreach ($lap as $r) :
+                    foreach ($periksa as $p) :
                     ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <td><?= $r['id_penyakit']; ?></td>
-                            <td><?= $r['nama_penyakit']; ?></td>
-                            <td>
-                            </td>
+                            <td><?= $p['id_periksa']; ?></td>
+                            <td><?= $p['nama_pasien']; ?></td>
+                            <td><?= $p['tanggal_periksa']; ?></td>
+                            <td><?= $p['nama_poli_periksa']; ?></td>
+                            <td><?= $p['status']; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

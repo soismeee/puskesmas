@@ -24,7 +24,7 @@
     <div class="sidebar-heading">
         Menu Utama
     </div>
-
+    <!-- ############################################################################################################################################## -->
     <!-- HAK AKSES ADMIN / PETUGAS -->
     <?php if (session()->get('hak_akses') == 'admin') : ?>
 
@@ -74,7 +74,14 @@
         <li class="nav-item">
             <a class="nav-link" href="/resep">
                 <i class="fas fa-fw fa-book"></i>
-                <span>Resep & Pembayaran</span></a>
+                <span>Resep</span></a>
+        </li>
+        
+        <!-- Nav Item - Resep Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/pembayaran">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Pembayaran</span></a>
         </li>
 
         <!-- Heading -->
@@ -97,6 +104,7 @@
         </li>
     <?php endif; ?>
     
+    <!-- ###################################################################################################################################################### -->
     <!-- HAK AKSES DOKTER -->
     <?php if (session()->get('hak_akses') == 'dokter') : ?>
 
@@ -140,22 +148,36 @@
         <li class="nav-item">
             <a class="nav-link" href="/resep">
                 <i class="fas fa-fw fa-book"></i>
-                <span>Resep & Pembayaran</span></a>
+                <span>Resep</span></a>
+        </li>
+
+        <!-- Nav Item - Resep Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/pembayaran">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Pembayaran</span></a>
         </li>
 
         <!-- Heading -->
         <div class="sidebar-heading">
             Menu Tambahan
         </div>
+        <!-- Nav Item - Pemeriksaan Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/konsultasi">
+            <i class="fas fa-headset"></i>
+                <span>Konsultasi Pasien</span></a>
+        </li>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" href="/laporan">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Laporan</span></a>
-        </li>
+        </li> -->
     <?php endif; ?>
     
+    <!-- ############################################################################################################################################ -->
     <!-- HAK AKSES PASIEN -->
     <?php if (session()->get('hak_akses') == 'pasien') : ?>
 
@@ -179,6 +201,20 @@
             <a class="nav-link" href="/datarm">
                 <i class="fas fa-fw fa-stethoscope"></i>
                 <span>Rekam Medis</span></a>
+        </li>
+
+        <!-- !-- Nav Item - Resep Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/resep">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Resep</span></a>
+        </li>
+
+        <!-- Nav Item - Resep Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="/pembayaran">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Pembayaran</span></a>
         </li>
 
         <!-- Nav Item - Pemeriksaan Menu -->

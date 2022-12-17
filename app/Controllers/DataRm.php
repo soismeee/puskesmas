@@ -6,6 +6,7 @@ use App\Models\DokterModel;
 use App\Models\JadwalDokterModel;
 use App\Models\PasienModel;
 use App\Models\RmModel;
+use Dompdf\Dompdf;
 
 class DataRm extends BaseController
 {
@@ -15,6 +16,7 @@ class DataRm extends BaseController
         $this->PasienModel = new PasienModel();
         $this->DokterModel = new DokterModel();
     }
+    
     public function index()
     {
         $data = [
@@ -54,16 +56,17 @@ class DataRm extends BaseController
         return view('periksa/tambahrm', $data);
     }
 
-    public function tambahrbp(){
+    public function tambahrbp($idrm){
         session();
         $data = [
             'title' => 'Tambah Resep',
             'validation' => \Config\Services::validation(),
             'listDokter' => $this->DokterModel->findAll(),
-            'listPasien' => $this->PasienModel->findAll()
+            'listPasien' => $this->PasienModel->findAll(),
+            'rekammedis' => $this->RmModel->getRekamMedis($idrm)
         ];
 
-        return view('resep/tambah', $data);
+        return view('rekammedis/tambahresep', $data);
     }
     
     public function lihatrbp(){
@@ -78,6 +81,29 @@ class DataRm extends BaseController
         return view('resep/lihatrp', $data);
     }
 
+    public function cetakrbp($idPasien){
+     
+        $pasien = $this->PasienModel->getPasien($idPasien);
+
+        $filename = date('y-m-d-H-i-s') . '-rekam medis pasien' . $pasien['nama_pasien'];
+
+        $data = [
+            'pasien' => $pasien,
+            'filename' => $filename
+        ];
+        $data['listRm'] = $this->RmModel->where('id_pasien', $idPasien)->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll();
+
+        // return view('rekammedis/print', $data);
+        $dompdf =  new Dompdf();
+
+        $dompdf->loadHtml(view('rekammedis/print', $data));
+
+        $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
+
+        $dompdf->render();
+
+        $dompdf->stream($filename);
+    }
 
     public function hapus($idrm)
     {

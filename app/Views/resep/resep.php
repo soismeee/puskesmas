@@ -9,7 +9,7 @@ Daftar Resep Pasien
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h6 style="color: #00f;">Data Resep Pasien Klinik Dharma Mulia</h6>
-            <a href="/resep/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah Resep</a>
+            <!-- <a href="/resep/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Tambah Resep</a> -->
         </div>
     </div>
     <!-- flasdata dengan alert -->
@@ -43,22 +43,26 @@ Daftar Resep Pasien
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $p['kode']; ?></td>
-                            <td><?= $p['tanggal']; ?></td>
+                            <td><?= date('d M Y', strtotime($p['tanggal'])); ?></td>
                             <td><?= $p['resep']; ?></td>
-                            <td><?= $p['id_dokter']; ?></td>
-                            <td><?= $p['id_pasien']; ?></td>
-                            <td><?= $p['umur']; ?></td>
+                            <td><?= $p['nama_dokter']; ?></td>
+                            <td><?= $p['nama_pasien']; ?></td>
+                            <td><?= $p['umur']; ?> Tahun</td>
                             <td><?= $p['alamat_pasien']; ?></td>
                             <td><?= $p['penerima']; ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- edit -->
+                                        <a href="/resep/cetakresep/<?= $p['kode']; ?>" class="btn btn-md btn-success"><i class="fas fa-print" title="cetak resep"></i></a>
+                                        <?php if(session()->get('hak_akses') != "pasien") : ?>
+                                        <a href="/resep/buatpembayaran/<?= $p['kode']; ?>" class="btn btn-md btn-info"><i class="fas fa-dollar-sign" title="buat pembyaran"></i></i></a>
                                         <a href="/resep/edit/<?= $p['kode']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>
                                         <!-- button hapus -->
                                         <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $p['kode'] ?>">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="hapus">
                                         <!-- Button hapus -->

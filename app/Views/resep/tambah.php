@@ -15,7 +15,8 @@ Tambah Resep Pasien
             <div class="form-group row">
                 <label for="kode" class="col-sm-2 col-form-label">Kode</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="kode" name="kode">
+                    <input type="hidden" class="form-control" id="kode" name="kode" readonly>
+                    <input type="text" class="form-control" id="id_rm" name="id_rm" value="<?= $rekammedis['id_rm']; ?>" readonly>
                 </div>
             </div>
             <div class="form-group row">
@@ -81,5 +82,19 @@ Tambah Resep Pasien
             </div>
     </div>
 
+    <?= $this->endSection(); ?>
 
+    <?= $this->section('js'); ?>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: "<?= site_url('resep/autocode'); ?>",
+                type: "GET",
+                success: function(hasil){
+                    var kode = $.parseJSON(hasil);
+                    $('#kode').val(kode);
+                }
+            });
+        });
+    </script>
     <?= $this->endSection(); ?>

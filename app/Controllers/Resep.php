@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\ResepModel;
 use App\Models\PasienModel;
 use App\Models\DokterModel;
+use Dompdf\Dompdf;
 
 class Resep extends BaseController
 {
@@ -18,7 +19,7 @@ class Resep extends BaseController
     {
         $data = [
             'title' => 'Resep',
-            'Resep' => $this->ResepModel->getResep()
+            'Resep' => $this->ResepModel->join('pasien', 'pasien.id_pasien = resep.id_pasien')->join('dokter', 'dokter.id_dokter = resep.id_dokter')->findAll()
         ];
 
         return view('resep/resep', $data);
@@ -27,6 +28,7 @@ class Resep extends BaseController
     {
         $this->ResepModel->insert([
             'kode' => $this->request->getVar('kode'),
+            'id_rm' => $this->request->getVar('id_rm'),
             'tanggal' => $this->request->getVar('tanggal'),
             'resep' => $this->request->getVar('resep'),
             'id_dokter' => $this->request->getVar('id_dokter'),
@@ -53,6 +55,34 @@ class Resep extends BaseController
         return view('resep/tambah', $data);
     }
 
+    public function cetakresep($idresep){
+        // $resep = $this->ResepModel->where('kode', $idresep)->join('pasien', 'pasien.id_pasien = resep.id_pasien')->join('dokter', 'dokter.id_dokter = resep.id_dokter')->first();
+        $resep = $this->ResepModel->getResep($idresep);
+        $filename = date('y-m-d-H-i-s') . '-cetak-resep';
+
+        $data = [
+            'resep' => $resep,
+            'filename' => $filename
+        ];
+        return view('resep/print', $data);
+
+        // $dompdf =  new Dompdf();
+        // $dompdf->loadHtml(view('resep/print', $data));
+        // $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
+        // $dompdf->render();
+        // $dompdf->stream($filename);
+    }
+
+    public function buatpembayaran($idresep){
+        session();
+        $data = [
+            'title' => 'Simpan Pembayaran',
+            'validation' => \Config\Services::validation(),
+            'resep' => $this->ResepModel->getResep($idresep)
+        ];
+        return view('resep/tambah_bayar', $data);
+    }
+
     public function hapus($idresep)
     {
         $this->ResepModel->delete(['kode' => $idresep]);
@@ -75,11 +105,9 @@ class Resep extends BaseController
 
         return view('resep/edit', $data);
     }
-    public function update($idresep)
+    public function update($kode)
     {
-
-        $this->ResepModel->update($idresep, [
-            'kode' => $this->request->getPost('kode'),
+        $this->ResepModel->update($kode, [
             'tanggal' => $this->request->getPost('tanggal'),
             'resep' => $this->request->getPost('resep'),
             'id_dokter' => $this->request->getPost('id_dokter'),
@@ -90,5 +118,8 @@ class Resep extends BaseController
         ]);
 
         return redirect()->to('/Resep');
+    }
+    public function autocode(){
+        return json_encode($this->ResepModel->generateCode());
     }
 }

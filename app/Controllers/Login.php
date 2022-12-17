@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\DataPenggunaModel;
+use App\Models\DokterModel;
 use App\Models\PasienModel;
 
 class Login extends Controller
@@ -59,8 +60,19 @@ class Login extends Controller
                         'hak_akses' => $dataPengguna['hak_akses'],
                     ];
                 
+                }else if($dataPengguna['hak_akses'] == "dokter"){
+                    // kondisi dimana user yang login adalah dokter
+                    $dokter = new DokterModel();
+                    $dataDokter = $dokter->where("id_pengguna", $dataPengguna['id_user'])->first();
+                    $dataSesi = [
+                        'id_user' => $dataPengguna['id_user'],
+                        'id_dokter' => $dataDokter['id_dokter'],
+                        'nama' => $dataPengguna['nama'],
+                        'username' => $dataPengguna['username'],
+                        'hak_akses' => $dataPengguna['hak_akses'],
+                    ];
                 }else{
-                    // kondisi dimana user yang login ada admin atau dokter
+                    // kondisi dimana user yang login adalah admin
                     $dataSesi = [
                         'id_user' => $dataPengguna['id_user'],
                         'nama' => $dataPengguna['nama'],

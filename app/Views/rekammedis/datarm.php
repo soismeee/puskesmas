@@ -51,8 +51,9 @@ Daftar Rekam Medis Pasien
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
+                                        <!-- <a href="/datarm/cetakrbp/<?= $r['id_pasien']; ?>" class="btn btn-md btn-success"><i class="fas fa-print" title=""></i></a> -->
                                         <?php if(session()->get('hak_akses') == "pasien") : ?>
-                                            <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-success"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a>
+                                            <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-primary"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a>
                                         <?php else : ?> 
                                             <!-- edit -->
                                             <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice" title="Tambah Resep dan pembayaran"></i></a>

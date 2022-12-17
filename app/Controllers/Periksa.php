@@ -22,7 +22,7 @@ class periksa extends BaseController
             $data = [
                 'title' => 'Periksa',
                 'button' => 1,
-                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->where('periksa.id_pasien', $session->get('id_user'))->findAll()
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'proses')->where('periksa.id_pasien', $session->get('id_pasien'))->findAll()
             ];
             return view('periksa/periksa_pasien', $data);
         }else{

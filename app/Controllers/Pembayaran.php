@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\ResepModel;
 use App\Models\PembayaranModel;
 use App\Models\PasienModel;
+use Dompdf\Dompdf;
 
 class Pembayaran extends BaseController
 {
@@ -19,14 +20,14 @@ class Pembayaran extends BaseController
             'pembayaran' => $this->PembayaranModel->getPembayaran()
         ];
 
-        return view('nota/pembayaran', $data);
+        return view('pembayaran/pembayaran', $data);
     }
     public function simpan()
     {
         //validasi input data
         if (!$this->validate([
             'id_transaksi' => [
-                'rules' => 'required|is_unique[pembayaran.id_transaksi]',
+                'rules' => 'required|is_unique[nota.id_transaksi]',
                 'errors' => [
                     'required' => '{field} id_harus diisi harus diisi',
                     'is_unique' => '{field} id sudah ada'
@@ -51,9 +52,9 @@ class Pembayaran extends BaseController
         session()->setFlashdata('pesan', 'Data Sudah Berhasil Ditambahkan');
         return redirect()->to('/pembayaran');
     }
+
     public function tambah()
     {
-
         session();
         $data = [
             'title' => 'Simpan Pembayaran',
@@ -63,6 +64,24 @@ class Pembayaran extends BaseController
         return view('pembayaran/tambah', $data);
     }
 
+    public function cetak($idtransaksi){
+        $nota = $this->PembayaranModel->getPembayaran($idtransaksi);
+
+        $filename = date('y-m-d-H-i-s') . '-cetak-nota';
+
+        $data = [
+            'nota' => $nota,
+            'filename' => $filename
+        ];
+        // return view('pembayaran/print', $data);
+
+        $dompdf =  new Dompdf();
+        $dompdf->loadHtml(view('resep/print', $data));
+        $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
+        $dompdf->render();
+        $dompdf->stream($filename);
+    }
+
     public function hapus($idtransaksi)
     {
         $this->PembayaranModel->delete(['id_transaksi' => $idtransaksi]);
@@ -70,7 +89,7 @@ class Pembayaran extends BaseController
         //flashdata pesan dihapus
         session()->setFlashdata('pesan', 'Data Anda Sudah Hilang!');
 
-        return redirect()->to('/nota');
+        return redirect()->to('/pembayaran');
     }
 
     public function edit($idtransaksi)
@@ -81,7 +100,7 @@ class Pembayaran extends BaseController
             'pembayaran' => $this->PembayaranModel->getPembayaran($idtransaksi)
         ];
 
-        return view('nota/edit', $data);
+        return view('pembayaran/edit', $data);
     }
     public function update($idtransaksi)
     {
@@ -96,4 +115,9 @@ class Pembayaran extends BaseController
 
         return redirect()->to('/pembayaran');
     }
+
+    public function autocode(){
+        return json_encode($this->PembayaranModel->generateCode());
+    }
+
 }

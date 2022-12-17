@@ -6,10 +6,14 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('auth/login');
+        return view('home/index');
     }
-    public function register()
-    {
-        return view('auth/register');
+
+    public function pelayanan(){
+        return view('home/pelayanan');
+    }
+
+    public function kontak(){
+        return view('home/kontak');
     }
 }
