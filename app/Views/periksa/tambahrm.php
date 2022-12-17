@@ -22,7 +22,7 @@ Tambah Data Rekam Medis
             <div class="form-group row">
                 <label for="tanggal_periksa" class="col-sm-2 col-form-label">Tanggal Pemeriksaan</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="tanggal_periksa" name="tanggal_periksa">
+                    <input type="date" class="form-control" id="tanggal_periksa" name="tanggal_periksa" value="<?= date('Y-m-d'); ?>">
                 </div>
             </div>
             <div class="form-group row">
@@ -63,7 +63,12 @@ Tambah Data Rekam Medis
             <div class="form-group row">
                 <label for="diagnosa" class="col-sm-2 col-form-label">Diagnosa Pasien</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="diagnosa" name="diagnosa" placeholder="">
+                    <select name="diagnosa" id="diagnosa" class="form-control">
+                        <option value="" selected disabled>Pilih Penyakit</option>
+                        <?php foreach ($listPenyakit as $penyakit) : ?>
+                            <option value="<?= $penyakit['id_penyakit']; ?>"><?= $penyakit['nama_penyakit']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

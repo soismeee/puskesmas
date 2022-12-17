@@ -26,7 +26,8 @@ class Dashboard extends BaseController
     public function laporan(){
         $data = [
             'title' => 'Laporan',
-            'periksa' => $this->PeriksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->findAll()
+            // 'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->findAll()
+            'listpenyakit' => $this->PenyakitModel->getPenyakit()
         ];
         return view('laporan/lap', $data);
     }

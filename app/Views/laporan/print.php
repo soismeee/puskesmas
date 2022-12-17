@@ -20,7 +20,6 @@
 
 <body>
     <div id="container">
-        <p style="text-align: center;"><img src="<?= base_url() ?>/img/logo.png" height="65" , style="float: left;">
             <center>
                 <h3>Laporan Bulanan</h3>
                 <h4>Jln. Raya Bojong Kajen - Bojong Telp. (0285) 4483058 </h4>
@@ -31,26 +30,22 @@
             <table style="width: 100%;" border="1">
                 <thead>
                     <tr bgcolor="#cccc">
-                        <th>No</th>
-                        <th>Id Periksa</th>
-                        <th>Nama Pasien</th>
-                        <th>Tanggal</th>
-                        <th>Poli</th>
-                        <th>Status</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Diagnosa Penyakit</th>
+                        <th scope="col">Jumlah kasus</th>
+                        <th scope="col">Ket</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php
+                    <?php
                     $i = 1;
-                    foreach ($periksa as $p) :
+                    foreach ($listpenyakit as $p) :
                     ?>
                         <tr>
-                            <th><?= $i++; ?></th>
-                            <td><?= $p['id_periksa']; ?></td>
-                            <td><?= $p['nama_pasien']; ?></td>
-                            <td><?= $p['tanggal_periksa']; ?></td>
-                            <td><?= $p['nama_poli_periksa']; ?></td>
-                            <td><?= $p['status']; ?></td>
+                            <th scope="row"><?= $i++; ?></th>
+                            <td><?= $p['nama_penyakit']; ?></td>
+                            <td><?= $p['jml_kasus']; ?></td>
+                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

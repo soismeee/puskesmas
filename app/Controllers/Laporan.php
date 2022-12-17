@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\PenyakitModel;
 use App\Models\PeriksaModel;
+use App\Models\RmModel;
 use Dompdf\Dompdf;
 
 class Laporan extends BaseController
@@ -13,12 +14,22 @@ class Laporan extends BaseController
     {
         $this->PenyakitModel = new PenyakitModel();
         $this->PeriksaModel = new PeriksaModel();
+        $this->RmModel = new RmModel();
     }
 
     public function index(){
+        $penyakit = $this->PenyakitModel->getPenyakit();
+        foreach ($penyakit as $key) {
+            $datas[] = [
+                'id_penyakit' => $key['id_penyakit'],
+                'nama_penyakit' => $key['nama_penyakit'],
+                'jml_kasus' => $this->RmModel->where('diagnosa', $key['id_penyakit'])->countAllResults()
+            ];
+        }
+
         $data = [
             'title' => 'Laporan',
-            'periksa' => $this->PeriksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->findAll()
+            'listpenyakit' => $datas
         ];
         return view('laporan/lap', $data);
     }
@@ -33,12 +44,20 @@ class Laporan extends BaseController
             return redirect()->to('/laporan')->withInput()->with('validation', $validation);
         }
         $bulan = $this->request->getVar('bulan');
-        $periksa = $this->PeriksaModel->where("DATE_FORMAT(tanggal_periksa,'%Y-%m')", $bulan)->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->findAll();
+
+        $penyakit = $this->PenyakitModel->getPenyakit();
+        foreach ($penyakit as $key) {
+            $datas[] = [
+                'id_penyakit' => $key['id_penyakit'],
+                'nama_penyakit' => $key['nama_penyakit'],
+                'jml_kasus' => $this->RmModel->where('diagnosa', $key['id_penyakit'])->where("DATE_FORMAT(tanggal_periksa,'%Y-%m')", $bulan)->countAllResults()
+            ];
+        }
 
         $filename = date('y-m-d-H-i-s') . '-laporan-bulanan';
 
         $data = [
-            'periksa' => $periksa,
+            'listpenyakit' => $datas,
             'filename' => $filename
         ];
 

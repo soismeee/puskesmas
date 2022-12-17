@@ -36,25 +36,21 @@ Klinik Dharma Mulia
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Id Periksa</th>
-                        <th scope="col">Nama Pasien</th>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Poli</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Diagnosa Penyakit</th>
+                        <th scope="col">Jumlah kasus</th>
+                        <th scope="col">Ket</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $i = 1;
-                    foreach ($periksa as $p) :
+                    foreach ($listpenyakit as $p) :
                     ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <td><?= $p['id_periksa']; ?></td>
-                            <td><?= $p['nama_pasien']; ?></td>
-                            <td><?= $p['tanggal_periksa']; ?></td>
-                            <td><?= $p['nama_poli_periksa']; ?></td>
-                            <td><?= $p['status']; ?></td>
+                            <td><?= $p['nama_penyakit']; ?></td>
+                            <td><?= $p['jml_kasus']; ?></td>
+                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

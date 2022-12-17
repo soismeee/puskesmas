@@ -49,7 +49,7 @@ Daftar Pasien
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- detail -->
-                                        <a href="/pasien/detail/<?= $p['id_pasien']; ?>" class="btn btn-md btn-info"><i class="fas fa-file"></i></a>
+                                        <!-- <a href="/pasien/detail/<?= $p['id_pasien']; ?>" class="btn btn-md btn-info"><i class="fas fa-file"></i></a> -->
 
                                         <!-- edit -->
                                         <a href="/pasien/editpasien/<?= $p['id_pasien']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt"></i></a>

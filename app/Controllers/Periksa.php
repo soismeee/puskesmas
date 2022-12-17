@@ -5,15 +5,16 @@ namespace App\Controllers;
 use App\Models\DokterModel;
 use App\Models\PasienModel;
 use App\Models\PeriksaModel;
+use App\Models\PenyakitModel;
 
 class periksa extends BaseController
 {
     public function __construct()
     {
         $this->periksaModel = new periksaModel();
-        $this->PenggunaModel = new PeriksaModel();
         $this->PasienModel = new PasienModel();
         $this->DokterModel = new DokterModel();
+        $this->PenyakitModel = new PenyakitModel();
     }
     public function index()
     {
@@ -178,7 +179,8 @@ class periksa extends BaseController
             'validation' => \Config\Services::validation(),
             'periksa' => $this->periksaModel->getPeriksa($idperiksa),
             'listDokter'   => $this->DokterModel->getDokter(),
-            'listPasien'   => $this->PasienModel->getPasien()
+            'listPasien'   => $this->PasienModel->getPasien(),
+            'listPenyakit'   => $this->PenyakitModel->getPenyakit()
         ];
 
         return view('periksa/tambahrm', $data);

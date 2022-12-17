@@ -23,13 +23,13 @@ Jadwal Dokter
             <table class="table table-striped table-bordered" id="datatables">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
+                        <th width="5%" scope="col">No</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Alamat</th>
                         <th scope="col">No Telp</th>
                         <th scope="col">Jenis Poli</th>
                         <th scope="col">Status</th>
-                        <th scope="col">#</th>
+                        <th width="10%" scope="col">#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@ Jadwal Dokter
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- detail -->
-                                        <a href="/dokter/detail/<?= $d['id_dokter']; ?>" class="btn btn-primary"><i class="fas fa-file"></i></a>
+                                        <!-- <a href="/dokter/detail/<?= $d['id_dokter']; ?>" class="btn btn-primary"><i class="fas fa-file"></i></a> -->
 
                                         <!-- edit -->
                                         <a href="/dokter/editdokter/<?= $d['id_dokter']; ?>" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
