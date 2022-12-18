@@ -19,10 +19,22 @@ class DataRm extends BaseController
     
     public function index()
     {
-        $data = [
-            'title' => 'Pemeriksaan',
-            'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll()
-        ];
+        if (session()->get('hak_akses') == "pasien") {
+            $data = [
+                'title' => 'Pemeriksaan',
+                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->where('rekam_medis.id_pasien', session()->get('id_pasien'))->findAll()
+            ];
+        } elseif(session()->get('hak_akses') == "dokter"){
+            $data = [
+                'title' => 'Pemeriksaan',
+                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->where('rekam_medis.id_dokter', session()->get('id_dokter'))->findAll()
+            ];
+        }else{
+            $data = [
+                'title' => 'Pemeriksaan',
+                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll()
+            ];
+        }
 
         return view('rekammedis/datarm', $data);
     }

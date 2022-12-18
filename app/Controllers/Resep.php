@@ -17,10 +17,22 @@ class Resep extends BaseController
     }
     public function index()
     {
-        $data = [
-            'title' => 'Resep',
-            'Resep' => $this->ResepModel->join('pasien', 'pasien.id_pasien = resep.id_pasien')->join('dokter', 'dokter.id_dokter = resep.id_dokter')->findAll()
-        ];
+        if (session()->get('hak_akses') == "pasien") {
+            $data = [
+                'title' => 'Resep',
+                'Resep' => $this->ResepModel->join('pasien', 'pasien.id_pasien = resep.id_pasien')->join('dokter', 'dokter.id_dokter = resep.id_dokter')->where('resep.id_pasien', session()->get('id_pasien'))->findAll()
+            ];
+        }elseif(session()->get('hak_akses') == "dokter"){
+            $data = [
+                'title' => 'Resep',
+                'Resep' => $this->ResepModel->join('pasien', 'pasien.id_pasien = resep.id_pasien')->join('dokter', 'dokter.id_dokter = resep.id_dokter')->where('resep.id_dokter', session()->get('id_dokter'))->findAll()
+            ];
+        }else{
+            $data = [
+                'title' => 'Resep',
+                'Resep' => $this->ResepModel->join('pasien', 'pasien.id_pasien = resep.id_pasien')->join('dokter', 'dokter.id_dokter = resep.id_dokter')->findAll()
+            ];
+        }
 
         return view('resep/resep', $data);
     }

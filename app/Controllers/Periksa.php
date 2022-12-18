@@ -127,9 +127,6 @@ class periksa extends BaseController
 
     public function tambahperiksa()
     {
-
-        session();
-
         $data = [
             'title' => 'Simpan periksa',
             'validation' => \Config\Services::validation(),
@@ -151,7 +148,6 @@ class periksa extends BaseController
 
     public function editperiksa($idperiksa)
     {
-
         $data = [
             'title' => 'Edit periksa',
             'periksa' => $this->periksaModel->getPeriksa($idperiksa)

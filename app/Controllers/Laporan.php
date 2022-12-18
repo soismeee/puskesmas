@@ -19,6 +19,9 @@ class Laporan extends BaseController
 
     public function index(){
         $penyakit = $this->PenyakitModel->getPenyakit();
+        if (!$penyakit) {
+            return redirect()->to('/penyakit');
+        }
         foreach ($penyakit as $key) {
             $datas[] = [
                 'id_penyakit' => $key['id_penyakit'],
@@ -58,6 +61,7 @@ class Laporan extends BaseController
 
         $data = [
             'listpenyakit' => $datas,
+            'bulan' => $bulan,
             'filename' => $filename
         ];
 

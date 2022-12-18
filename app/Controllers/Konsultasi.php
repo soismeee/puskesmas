@@ -25,11 +25,15 @@ class Konsultasi extends BaseController
 
     public function index()
     {
-        if (session()->get('hak_akses') == "pasien") {
-            # code...
+        if(session()->get('hak_akses') == "pasien") {
             $data = [
                 'title' => 'Data Konsultasi',
                 'konsultasi' => $this->KonsultasiModel->where('konsultasi.id_pasien', session()->get('id_pasien'))->join('dokter', 'dokter.id_dokter = konsultasi.id_dokter')->join('pasien', 'pasien.id_pasien = konsultasi.id_pasien')->findAll()
+            ];
+        }elseif(session()->get('hak_akses') == "dokter"){
+            $data = [
+                'title' => 'Data Konsultasi',
+                'konsultasi' => $this->KonsultasiModel->where('konsultasi.id_dokter', session()->get('id_dokter'))->join('dokter', 'dokter.id_dokter = konsultasi.id_dokter')->join('pasien', 'pasien.id_pasien = konsultasi.id_pasien')->findAll()
             ];
         }else{
             $data = [

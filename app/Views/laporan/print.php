@@ -21,8 +21,9 @@
 <body>
     <div id="container">
             <center>
-                <h3>Laporan Bulanan</h3>
-                <h4>Jln. Raya Bojong Kajen - Bojong Telp. (0285) 4483058 </h4>
+                <h3>KLINIK DARMA MULIA</h3>
+                <h4>LAPORAN PELAYANAN RAWAT JALAN</h4>
+                <H4>Periode <?= date('F Y', strtotime($bulan)); ?></H4>
             </center>
         </p>
         <hr />

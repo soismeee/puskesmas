@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2022 at 01:40 PM
+-- Generation Time: Dec 18, 2022 at 02:20 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -33,18 +33,6 @@ CREATE TABLE `detail_konsultasi` (
   `pesan` text NOT NULL,
   `akses` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `detail_konsultasi`
---
-
-INSERT INTO `detail_konsultasi` (`id_detkon`, `id_konsultasi`, `pesan`, `akses`) VALUES
-(1, 'KONSUL2001', 'haloo', 'pasien'),
-(2, 'KONSUL2001', 'haii', 'dokter'),
-(3, 'KONSUL2001', 'test', 'pasien'),
-(4, 'KONSUL2001', 'halo dok', 'pasien'),
-(5, 'KONSUL2001', 'tes pesan', 'pasien'),
-(7, 'KONSUL2001', 'test dokter', 'pasien');
 
 -- --------------------------------------------------------
 
@@ -113,13 +101,6 @@ CREATE TABLE `konsultasi` (
   `tanggal_konsul` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `konsultasi`
---
-
-INSERT INTO `konsultasi` (`id_konsultasi`, `id_dokter`, `id_penyakit`, `id_pasien`, `tanggal_konsul`) VALUES
-('KONSUL2001', 1, 1, 2, '2022-12-12');
-
 -- --------------------------------------------------------
 
 --
@@ -145,13 +126,6 @@ CREATE TABLE `nota` (
   `jumlah` varchar(50) NOT NULL,
   `total` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `nota`
---
-
-INSERT INTO `nota` (`id_transaksi`, `jenis_transaksi`, `id_resep`, `jumlah`, `total`) VALUES
-('NOTA0001', 'test', '3239', '123', '123');
 
 -- --------------------------------------------------------
 
@@ -188,10 +162,7 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id_pasien`, `id_pengguna`, `nama_pasien`, `tanggal_lahir`, `jekel`, `nama_kk`, `alamat_pasien`, `nama_poli`) VALUES
-(2, 2, 'Andika', '2004-12-12', 'Perempuan', 'user1', 'user', 'Umum'),
-(3, 0, 'testing', '2003-08-24', 'Laki-laki', 'test d', 'test', 'KIA/KB'),
-(4, 0, 'test', '1000-12-12', 'Perempuan', 'asd', 'asd', 'Gigi'),
-(5, 9, 'coba', '2000-12-12', 'Laki-laki', 'coba', 'coba', NULL);
+(1, 0, 'danu', '2000-12-12', 'Perempuan', 'danu', 'pekalongan', 'Umum');
 
 -- --------------------------------------------------------
 
@@ -218,7 +189,10 @@ INSERT INTO `pengguna` (`id_user`, `nama`, `username`, `password`, `hak_akses`) 
 (5, 'hapus yaa', 'hapus', '896108ffe704496149885c995838779b', 'dokter'),
 (6, 'dokter ridwan', 'ridwan', 'd584c96e6c1ba3ca448426f66e552e8e', 'dokter'),
 (8, 'listi', 'listi', '3dc0c1f3d00f2ca8991c08acef866550', 'admin'),
-(9, 'coba', 'coba', 'c3ec0f7b054e729c5a716c8125839829', 'pasien');
+(9, 'coba', 'coba', 'c3ec0f7b054e729c5a716c8125839829', 'pasien'),
+(10, 'test', 'cobaaa', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
+(11, 'danu', 'danu', 'a29e5a0efaa2b1521ebea7cf10cd0eab', 'pasien'),
+(12, 'ana', 'ana', '827ccb0eea8a706c4c34a16891f84e7b', 'dokter');
 
 -- --------------------------------------------------------
 
@@ -237,7 +211,7 @@ CREATE TABLE `penyakit` (
 --
 
 INSERT INTO `penyakit` (`id_penyakit`, `nama_penyakit`, `ket_penyakit`) VALUES
-(1, 'test', 'ubah keterangan');
+(1, 'batuk', 'batuk');
 
 -- --------------------------------------------------------
 
@@ -260,13 +234,7 @@ CREATE TABLE `periksa` (
 --
 
 INSERT INTO `periksa` (`id_periksa`, `id_pasien`, `tanggal_periksa`, `shift`, `waktu_daftar`, `nama_poli_periksa`, `status`) VALUES
-('10', '2', '2022-11-29 22:18:00', 'Pagi', '2022-11-29 22:18:00', 'KIA/KB', 'selesai'),
-('11', '2', '2022-12-10 14:28:00', 'Siang', '2022-12-10 01:28:29', 'KIA/KB', 'proses'),
-('12', '3', '2022-12-04 20:32:00', 'Siang', '2022-12-04 20:32:00', 'Gigi', 'selesai'),
-('9', '2', '2022-11-28 12:24:00', 'Pagi', '2022-11-28 12:24:00', 'Umum', 'selesai'),
-('PRS2-0010', '2', '2022-12-09 14:32:00', 'Siang', '2022-12-10 01:33:08', 'Gigi', 'proses'),
-('PRS2-0011', '2', '2022-12-15 07:38:00', 'Siang', '2022-12-14 06:38:50', 'Gigi', 'proses'),
-('PRS9-0012', '5', '2022-12-15 07:40:00', 'Pagi', '2022-12-14 06:40:52', 'Umum', 'proses');
+('PRS4-0001', '1', '2022-12-17 22:14:00', 'Siang', '2022-12-17 22:14:00', 'Umum', 'selesai');
 
 -- --------------------------------------------------------
 
@@ -315,8 +283,7 @@ CREATE TABLE `rekam_medis` (
 --
 
 INSERT INTO `rekam_medis` (`id_rm`, `id_pasien`, `id_dokter`, `data_subjektif`, `data_objektif`, `diagnosa`, `planning`, `tanggal_periksa`) VALUES
-('RM0001', '2', '1', 'test', 'okeeeeeee', 'test ffff', 'test lagi', '2022-12-08'),
-('RM0002', '3', '2', 'oke ff', 'sdkajsd', 'oke gg', 'oke', '2022-12-02');
+('RM0001', '1', '1', 'asdasdasdaasd', 'dadsad', '1', 'asdasd', '2022-12-17');
 
 -- --------------------------------------------------------
 
@@ -335,14 +302,6 @@ CREATE TABLE `resep` (
   `alamat_pasien` varchar(50) NOT NULL,
   `penerima` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `resep`
---
-
-INSERT INTO `resep` (`kode`, `id_rm`, `tanggal`, `resep`, `id_dokter`, `id_pasien`, `umur`, `alamat_pasien`, `penerima`) VALUES
-('3239', 'RM0002', '2022-11-01', 'sirup', '1', '2', '23', 'tes lagi', 'testing'),
-('RS3240', 'RM0001', '2022-12-13', 'test simpan', '1', '2', '18', 'pekalongan', 'Andika');
 
 --
 -- Indexes for dumped tables
@@ -435,7 +394,7 @@ ALTER TABLE `resep`
 -- AUTO_INCREMENT for table `detail_konsultasi`
 --
 ALTER TABLE `detail_konsultasi`
-  MODIFY `id_detkon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_detkon` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dokter`
@@ -453,13 +412,13 @@ ALTER TABLE `jadwal_dokter`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pasien` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_user` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `penyakit`

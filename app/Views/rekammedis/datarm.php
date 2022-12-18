@@ -51,18 +51,24 @@ Daftar Rekam Medis Pasien
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
-                                        <!-- <a href="/datarm/cetakrbp/<?= $r['id_pasien']; ?>" class="btn btn-md btn-success"><i class="fas fa-print" title=""></i></a> -->
-                                        <?php if(session()->get('hak_akses') == "pasien") : ?>
-                                            <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-primary"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a>
-                                        <?php else : ?> 
-                                            <!-- edit -->
-                                            <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice" title="Tambah Resep dan pembayaran"></i></a>
-                                            <a href="/datarm/editrm/<?= $r['id_rm']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt" title="edit rekam medis"></i></a>
-                                            <!-- button hapus -->
-                                            <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
-                                                <i class="fas fa-trash" title="hapus data rekam medis"></i>
-                                            </button>
-                                        <?php endif; ?>
+                                            <?php if(session()->get('hak_akses') == "pasien") : ?>
+                                                <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-primary"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a>
+                                            <?php elseif(session()->get('hak_akses') == "admin") : ?> 
+                                                <a href="/datarm/cetakrbp/<?= $r['id_pasien']; ?>" class="btn btn-md btn-success"><i class="fas fa-print" title=""></i></a>
+                                                <!-- button hapus -->
+                                                <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
+                                                    <i class="fas fa-trash" title="hapus data rekam medis"></i>
+                                                </button>
+                                            <?php else : ?> 
+                                                <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice" title="Tambah Resep dan pembayaran"></i></a>
+                                                <!-- edit -->
+                                                <a href="/datarm/editrm/<?= $r['id_rm']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt" title="edit rekam medis"></i></a>
+                                                <!-- button hapus -->
+                                                <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
+                                                    <i class="fas fa-trash" title="hapus data rekam medis"></i>
+                                                </button>
+                                            <?php endif; ?>
+                                            
                                     </div>
                                     <div class="hapus">
                                         <!-- Button hapus -->

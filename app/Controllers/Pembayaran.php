@@ -15,10 +15,22 @@ class Pembayaran extends BaseController
     }
     public function index()
     {
-        $data = [
-            'title' => 'Pembayaran',
-            'pembayaran' => $this->PembayaranModel->getPembayaran()
-        ];
+        if (session()->get('hak_akses') == "pasien") {
+            $data = [
+                'title' => 'Pembayaran',
+                'pembayaran' => $this->PembayaranModel->join('resep', 'resep.kode = nota.id_resep')->where('resep.id_pasien', session()->get('id_pasien'))->findAll()
+            ];
+        }elseif(session()->get('hak_akses') == "dokter"){
+            $data = [
+                'title' => 'Pembayaran',
+                'pembayaran' => $this->PembayaranModel->join('resep', 'resep.kode = nota.id_resep')->where('resep.id_dokter', session()->get('id_dokter'))->findAll()
+            ];
+        }else{
+            $data = [
+                'title' => 'Pembayaran',
+                'pembayaran' => $this->PembayaranModel->getPembayaran()
+            ];
+        }
 
         return view('pembayaran/pembayaran', $data);
     }
