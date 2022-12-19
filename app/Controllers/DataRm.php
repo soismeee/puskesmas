@@ -22,17 +22,17 @@ class DataRm extends BaseController
         if (session()->get('hak_akses') == "pasien") {
             $data = [
                 'title' => 'Pemeriksaan',
-                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->where('rekam_medis.id_pasien', session()->get('id_pasien'))->findAll()
+                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->join('penyakit', 'penyakit.id_penyakit = rekam_medis.diagnosa')->where('rekam_medis.id_pasien', session()->get('id_pasien'))->findAll()
             ];
         } elseif(session()->get('hak_akses') == "dokter"){
             $data = [
                 'title' => 'Pemeriksaan',
-                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->where('rekam_medis.id_dokter', session()->get('id_dokter'))->findAll()
+                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->join('penyakit', 'penyakit.id_penyakit = rekam_medis.diagnosa')->where('rekam_medis.id_dokter', session()->get('id_dokter'))->findAll()
             ];
         }else{
             $data = [
                 'title' => 'Pemeriksaan',
-                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll()
+                'rekammedis' => $this->RmModel->join('pasien', 'pasien.id_pasien = rekam_medis.id_pasien')->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->join('penyakit', 'penyakit.id_penyakit = rekam_medis.diagnosa')->findAll()
             ];
         }
 
@@ -103,17 +103,14 @@ class DataRm extends BaseController
             'pasien' => $pasien,
             'filename' => $filename
         ];
-        $data['listRm'] = $this->RmModel->where('id_pasien', $idPasien)->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->findAll();
+        $data['listRm'] = $this->RmModel->where('id_pasien', $idPasien)->join('dokter', 'dokter.id_dokter = rekam_medis.id_dokter')->join('penyakit', 'penyakit.id_penyakit = rekam_medis.diagnosa')->findAll();
 
         // return view('rekammedis/print', $data);
+
         $dompdf =  new Dompdf();
-
         $dompdf->loadHtml(view('rekammedis/print', $data));
-
         $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
-
         $dompdf->render();
-
         $dompdf->stream($filename);
     }
 

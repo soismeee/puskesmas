@@ -76,13 +76,13 @@ class Resep extends BaseController
             'resep' => $resep,
             'filename' => $filename
         ];
-        return view('resep/print', $data);
+        // return view('resep/print', $data);
 
-        // $dompdf =  new Dompdf();
-        // $dompdf->loadHtml(view('resep/print', $data));
-        // $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
-        // $dompdf->render();
-        // $dompdf->stream($filename);
+        $dompdf =  new Dompdf();
+        $dompdf->loadHtml(view('resep/print', $data));
+        $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
+        $dompdf->render();
+        $dompdf->stream($filename);
     }
 
     public function buatpembayaran($idresep){

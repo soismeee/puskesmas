@@ -41,12 +41,12 @@ Daftar Rekam Medis Pasien
                     ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <td><?= $r['tanggal_periksa']; ?></td>
+                            <td><?= date('d/m/Y', strtotime($r['tanggal_periksa'])); ?></td>
                             <td><?= $r['nama_pasien']; ?></td>
                             <td><?= $r['nama_dokter']; ?></td>
                             <td><?= $r['data_subjektif']; ?></td>
                             <td><?= $r['data_objektif']; ?></td>
-                            <td><?= $r['diagnosa']; ?></td>
+                            <td><?= $r['nama_penyakit']; ?></td>
                             <td><?= $r['planning']; ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">

@@ -88,7 +88,7 @@ class Pembayaran extends BaseController
         // return view('pembayaran/print', $data);
 
         $dompdf =  new Dompdf();
-        $dompdf->loadHtml(view('resep/print', $data));
+        $dompdf->loadHtml(view('pembayaran/print', $data));
         $dompdf->setPaper(array(0,0,609.4488,935.433), 'potrait');
         $dompdf->render();
         $dompdf->stream($filename);

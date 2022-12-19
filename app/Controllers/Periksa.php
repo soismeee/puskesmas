@@ -43,18 +43,18 @@ class periksa extends BaseController
 
     public function selesai(){
         $session = session();
-        if($session->get('hak_akses') == "admin"){
+        if($session->get('hak_akses') == "pasien"){
             $data = [
                 'title' => 'Periksa',
                 'button' => 0,
-                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->findAll()
-            ];    
+                'periksa' => $this->periksaModel->where('periksa.id_pasien', $session->get('id_pasien'))->where('status', 'selesai')->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->findAll()
+            ];
         }else{
             $data = [
                 'title' => 'Periksa',
                 'button' => 0,
-                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->where('periksa.id_pasien', $session->get('id_user'))->findAll()
-            ];
+                'periksa' => $this->periksaModel->join('pasien', 'pasien.id_pasien = periksa.id_pasien')->where('status', 'selesai')->findAll()
+            ];  
         }
 
         return view('periksa/periksa', $data);

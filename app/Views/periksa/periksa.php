@@ -29,10 +29,10 @@ Periksa
                         <th width="20%" scope="col">Nama Pasien</th>
                         <th width="15%" scope="col">Tanggal Periksa</th>
                         <th width="10%" scope="col">Shift</th>
-                        <th width="10%" scope="col">Waktu Pendaftaran</th>
+                        <th width="15%" scope="col">Waktu Pendaftaran</th>
                         <th width="10%" scope="col">Jenis Poli</th>
                         <th width="10%" scope="col">Status</th>
-                        <th width="10%" scope="col">Aksi</th>
+                        <th width="5%" scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,9 +42,9 @@ Periksa
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $a['nama_pasien']; ?></td>
-                            <td><?= $a['tanggal_periksa']; ?></td>
+                            <td><?= date('d/m/Y, h:i:s A', strtotime($a['tanggal_periksa'])); ?></td>
                             <td><?= $a['shift']; ?></td>
-                            <td><?= $a['waktu_daftar']; ?></td>
+                            <td><?= date('d/m/Y, h:i:s A', strtotime($a['waktu_daftar'])); ?></td>
                             <td><?= $a['nama_poli_periksa']; ?></td>
                             <td>
                                 <?php if($a['status'] == "selesai") : ?>
@@ -61,9 +61,12 @@ Periksa
                                 <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
-                                        <?php if('s') ?>
                                         <!-- buat rekam medis -->
-                                        <a href="/periksa/createrm/<?= $a['id_periksa']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice"></i></a>
+                                        <?php if(session()->get('hak_akses') == "pasien") : ?>
+                                            <span class="badge badge-success">Selesai</span>
+                                        <?php else : ?>
+                                            <a href="/periksa/createrm/<?= $a['id_periksa']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice"></i></a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 </td>

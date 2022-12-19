@@ -36,7 +36,7 @@ class DataPengguna extends BaseController
         $this->DataPenggunaModel->insert([
             'nama' => $this->request->getVar('nama'),
             'username' => $this->request->getVar('username'),
-            'password' => md5($this->request->getVar('password')),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'hak_akses' => $this->request->getVar('hak_akses'),
         ]);
 
@@ -72,7 +72,7 @@ class DataPengguna extends BaseController
             $this->DataPenggunaModel->update($idpasien, [
                 'nama' => $this->request->getVar('nama'),
                 'username' => $this->request->getVar('username'),
-                'password' => md5($this->request->getVar('password')),
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                 'hak_akses' => $this->request->getVar('hak_akses'),
             ]);
         }else{

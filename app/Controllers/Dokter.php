@@ -53,7 +53,7 @@ class Dokter extends BaseController
         $data = [
             'nama' => $this->request->getVar('nama_dokter'),
             'username' => $this->request->getVar('username'),
-            'password' => md5($this->request->getVar('password')),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'hak_akses' => 'dokter'
         ];
 

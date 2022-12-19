@@ -29,66 +29,56 @@ class Login extends Controller
 
     public function auth()
     {
-        $login = $this->request->getVar('login');
-        if ($login) {
-            $username = $this->request->getVar('username');
-            $password = $this->request->getVar('password');
-
-            if ($username == '' or $password == '') {
-                $err = "username dan password harus diisi !!";
-            }
-
-            if (empty($err)) {
-                $pengguna = new DataPenggunaModel();
-                $dataPengguna = $pengguna->where("username", $username)->first();
-                
-                if ($dataPengguna['password'] != md5($password)) {
-                    $err = "Username atau password salah!!";
-                }
-            }
-
-            if (empty($err)) {
-                if ($dataPengguna['hak_akses'] == "pasien") {
+        $session = session();
+        $model = new DataPenggunaModel();
+        $username = $this->request->getVar('username');
+        $password = $this->request->getVar('password');
+        $data = $model->where('username', $username)->first();
+        if($data){
+            $pass = $data['password'];
+            $verify_pass = password_verify($password, $pass);
+            if($verify_pass){
+                if ($data['hak_akses'] == "pasien") {
                     // kodisi dimana user yang login adalah pasien
                     $pasien = new PasienModel();
-                    $dataPasien = $pasien->where("id_pengguna", $dataPengguna['id_user'])->first();
+                    $dataPasien = $pasien->where("id_pengguna", $data['id_user'])->first();
                     $dataSesi = [
-                        'id_user' => $dataPengguna['id_user'],
+                        'id_user' => $data['id_user'],
                         'id_pasien' => $dataPasien['id_pasien'], // mengambil data id pasien
-                        'nama' => $dataPengguna['nama'],
-                        'username' => $dataPengguna['username'],
-                        'hak_akses' => $dataPengguna['hak_akses'],
+                        'nama' => $data['nama'],
+                        'username' => $data['username'],
+                        'hak_akses' => $data['hak_akses'],
                     ];
                 
-                }else if($dataPengguna['hak_akses'] == "dokter"){
+                }else if($data['hak_akses'] == "dokter"){
                     // kondisi dimana user yang login adalah dokter
                     $dokter = new DokterModel();
-                    $dataDokter = $dokter->where("id_pengguna", $dataPengguna['id_user'])->first();
+                    $dataDokter = $dokter->where("id_pengguna", $data['id_user'])->first();
                     $dataSesi = [
-                        'id_user' => $dataPengguna['id_user'],
+                        'id_user' => $data['id_user'],
                         'id_dokter' => $dataDokter['id_dokter'],
-                        'nama' => $dataPengguna['nama'],
-                        'username' => $dataPengguna['username'],
-                        'hak_akses' => $dataPengguna['hak_akses'],
+                        'nama' => $data['nama'],
+                        'username' => $data['username'],
+                        'hak_akses' => $data['hak_akses'],
                     ];
                 }else{
                     // kondisi dimana user yang login adalah admin
                     $dataSesi = [
-                        'id_user' => $dataPengguna['id_user'],
-                        'nama' => $dataPengguna['nama'],
-                        'username' => $dataPengguna['username'],
-                        'hak_akses' => $dataPengguna['hak_akses'],
+                        'id_user' => $data['id_user'],
+                        'nama' => $data['nama'],
+                        'username' => $data['username'],
+                        'hak_akses' => $data['hak_akses'],
                     ];
                 }
                 session()->set($dataSesi);
-                return redirect()->to('Dashboard');
+                return redirect()->to('/dashboard');
+            }else{
+                $session->setFlashdata('error', 'Username atau password salah');
+                return redirect()->to('/login');
             }
-
-            if ($err) {
-                session()->setFlashdata('username', $username);
-                session()->setFlashdata('error', $err);
-                return redirect()->to("login");
-            }
+        }else{
+            $session->setFlashdata('error', 'Username dan password harus diisi');
+            return redirect()->to('/login');
         }
     }
 
@@ -118,7 +108,7 @@ class Login extends Controller
         $data = [
             'nama' => $this->request->getVar('nama_pasien'),
             'username' => $this->request->getVar('username'),
-            'password' => md5($this->request->getVar('password')),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             'hak_akses' => 'pasien'
         ];
 
@@ -133,26 +123,11 @@ class Login extends Controller
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
             'jekel' => $this->request->getVar('jekel'),
             'nama_kk' => $this->request->getVar('nama_kk'),
-            'alamat_pasien' => $this->request->getVar('alamat_pasien')
+            'alamat_pasien' => $this->request->getVar('alamat_pasien'),
+            'nama_poli' => $this->request->getVar('nama_poli'),
         ];
 
         $pasien->insert($data2);
-        // $this->DataPenggunaModel->insert([
-        //     'nama' => $this->request->getVar('nama_pasien'),
-        //     'username' => $this->request->getVar('username'),
-        //     'password' => md5($this->request->getVar('password')),
-        //     'hak_akses' => 'pasien'
-        // ]);
-
-        // $this->PasienModel->insert([
-        //     'id_pengguna' => $id_pengguna,
-        //     'nama_pasien' => $this->request->getVar('nama_pasien'),
-        //     'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
-        //     'jekel' => $this->request->getVar('jekel'),
-        //     'nama_kk' => $this->request->getVar('nama_kk'),
-        //     'alamat_pasien' => $this->request->getVar('alamat_pasien')
-        // ]);
-        
         return redirect()->to('/login');
     }
 

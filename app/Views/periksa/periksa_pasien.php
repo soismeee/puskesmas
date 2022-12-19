@@ -42,9 +42,9 @@ Periksa
                         <tr>
                             <td><?= $i++; ?></td>
                             <td><?= $a['nama_pasien']; ?></td>
-                            <td><?= $a['tanggal_periksa']; ?></td>
+                            <td><?= date('d/m/Y, h:i:s A', strtotime($a['tanggal_periksa'])); ?></td>
                             <td><?= $a['shift']; ?></td>
-                            <td><?= $a['waktu_daftar']; ?></td>
+                            <td><?= date('d/m/Y, h:i:s A', strtotime($a['waktu_daftar'])); ?></td>
                             <td><?= $a['nama_poli_periksa']; ?></td>
                             <td>
                                 <?php if($a['status'] == "selesai") : ?>

@@ -9,7 +9,9 @@ Konsultasi pasien
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h6 style="color: #00f;"> Data konsultasi </h6>
-            <a href="/konsultasi/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Buat konsultasi baru</a>
+            <?php if(session()->get('hak-akses') == "pasien") : ?>
+                <a href="/konsultasi/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Buat konsultasi baru</a>
+            <?php endif; ?>
         </div>
     </div>
     <!-- flasdata dengan alert -->

@@ -34,7 +34,7 @@
                     <td width="300px"><?= $pasien['nama_pasien']; ?></td>
                     <td width="150px">Tanggal lahir</td>
                     <td>:</td>
-                    <td width="250px"><?= $pasien['tanggal_lahir']; ?></td>
+                    <td width="250px"><?= date('d/m/Y', strtotime($pasien['tanggal_lahir'])); ?></td>
                 </tr>
                 <tr>
                     <td>Nama KK</td>
@@ -72,11 +72,11 @@
                     <?php foreach ($listRm as $i => $data) : ?>
                         <tr>
                             <td><?= $i + 1; ?></td>
-                            <td><?= date('d-m-Y', strtotime($data['tanggal_periksa'])); ?></td>
+                            <td><?= date('d/m/Y', strtotime($data['tanggal_periksa'])); ?></td>
                             <td><?= $data['nama_dokter']; ?></td>
                             <td><?= $data['data_subjektif']; ?></td>
                             <td><?= $data['data_objektif']; ?></td>
-                            <td><?= $data['diagnosa']; ?></td>
+                            <td><?= $data['nama_penyakit']; ?></td>
                             <td><?= $data['planning']; ?></td>
 
                         <?php endforeach; ?>

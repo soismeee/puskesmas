@@ -43,7 +43,7 @@ Daftar Resep Pasien
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $p['kode']; ?></td>
-                            <td><?= date('d M Y', strtotime($p['tanggal'])); ?></td>
+                            <td><?= date('d/m/Y', strtotime($p['tanggal'])); ?></td>
                             <td><?= $p['resep']; ?></td>
                             <td><?= $p['nama_dokter']; ?></td>
                             <td><?= $p['nama_pasien']; ?></td>

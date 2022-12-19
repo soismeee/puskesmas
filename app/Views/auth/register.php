@@ -23,8 +23,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Nama</label>
-                                <input type="text" class="form-control <?= ($validation->hasError('nama_pasien')) ? 'is-invalid' : ''; ?>" id="nama_pasien" name="nama_pasien" placeholder="Masukan nama anda">
-                                <?= $validation->getError('nama_pasien'); ?>
+                                <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" placeholder="Masukan nama anda">
                             </div>
                             <div class="form-group">
                                 <label for="">Nama KK</label>
@@ -45,12 +44,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="">Jenis Poli</label>
+                                <select name="nama_poli" id="nama_poli" class="form-control">
+                                    <option value="Umum">Poli Umum</option>
+                                    <option value="Gigi">Poli Gigi</option>
+                                    <option value="KIA/KB">Poli KIA/KB</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="">alamat</label>
                                 <textarea name="alamat_pasien" id="alamat_pasien" cols="10" rows="3" class="form-control" placeholder="Masukan alamat anda"></textarea>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                <h4> &nbsp;&nbsp; Form data akun</h4>
+                                    <h4> &nbsp;&nbsp; Form data akun</h4>
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Buat username anda">
@@ -64,7 +71,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="<?= site_url('login'); ?>">Sudah punya akun? Login sekarang!</a>
+                            <a class="small" href="/login">Sudah punya akun? Login sekarang!</a>
                         </div>
                     </div>
                 </div>
