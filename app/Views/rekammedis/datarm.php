@@ -31,7 +31,10 @@ Daftar Rekam Medis Pasien
                         <th scope="col">Data Objektif</th>
                         <th scope="col">Diagnosa</th>
                         <th scope="col">Planning</th>
-                        <th scope="col">Aksi</th>
+                        <?php if (session()->get('hak_akses') == "pasien") : ?>
+                        <?php else : ?>
+                            <th scope="col">Aksi</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,18 +51,20 @@ Daftar Rekam Medis Pasien
                             <td><?= $r['data_objektif']; ?></td>
                             <td><?= $r['nama_penyakit']; ?></td>
                             <td><?= $r['planning']; ?></td>
-                            <td>
-                                <div class="d-flex justify-content-center">
-                                    <div class="btn-group">
-                                            <?php if(session()->get('hak_akses') == "pasien") : ?>
-                                                <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-primary"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a>
-                                            <?php elseif(session()->get('hak_akses') == "admin") : ?> 
+                            <?php if (session()->get('hak_akses') == "pasien") : ?>
+                            <?php else : ?>
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="btn-group">
+                                            <?php if (session()->get('hak_akses') == "pasien") : ?>
+                                                <!-- <a href="/datarm/lihatrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-primary"><i class="fas fa-file-invoice-dollar" title="lihat resep dan pembayaran"></i></a> -->
+                                            <?php elseif (session()->get('hak_akses') == "admin") : ?>
                                                 <a href="/datarm/cetakrbp/<?= $r['id_pasien']; ?>" class="btn btn-md btn-success"><i class="fas fa-print" title=""></i></a>
                                                 <!-- button hapus -->
                                                 <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $r['id_rm'] ?>">
                                                     <i class="fas fa-trash" title="hapus data rekam medis"></i>
                                                 </button>
-                                            <?php else : ?> 
+                                            <?php else : ?>
                                                 <a href="/datarm/tambahrbp/<?= $r['id_rm']; ?>" class="btn btn-md btn-info"><i class="fas fa-file-invoice" title="Tambah Resep dan pembayaran"></i></a>
                                                 <!-- edit -->
                                                 <a href="/datarm/editrm/<?= $r['id_rm']; ?>" class="btn btn-md btn-warning"><i class="fas fa-pencil-alt" title="edit rekam medis"></i></a>
@@ -68,35 +73,36 @@ Daftar Rekam Medis Pasien
                                                     <i class="fas fa-trash" title="hapus data rekam medis"></i>
                                                 </button>
                                             <?php endif; ?>
-                                            
-                                    </div>
-                                    <div class="hapus">
-                                        <!-- Button hapus -->
-                                        <div class="modal fade" id="deleteModal_<?= $r['id_rm'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+
+                                        </div>
+                                        <div class="hapus">
+                                            <!-- Button hapus -->
+                                            <div class="modal fade" id="deleteModal_<?= $r['id_rm'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/datarm/hapus/<?= $r['id_rm']; ?>" method="get">
+                                                            <div class="modal-body">
+                                                                Apakah Anda Yakin Ingin Menggapus Data?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-warning">Hapus</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <form action="/datarm/hapus/<?= $r['id_rm']; ?>" method="get">
-                                                        <div class="modal-body">
-                                                            Apakah Anda Yakin Ingin Menggapus Data?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-warning">Hapus</button>
-                                                        </div>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </td>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -108,11 +114,11 @@ Daftar Rekam Medis Pasien
 <?= $this->endSection(); ?>
 
 <?= $this->section('js'); ?>
-    <script>
-        window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove(); 
-            });
-        }, 3000);
-    </script>
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function() {
+            $(this).remove();
+        });
+    }, 3000);
+</script>
 <?= $this->endSection(); ?>

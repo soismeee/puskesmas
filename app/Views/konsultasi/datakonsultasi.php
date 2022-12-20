@@ -9,7 +9,7 @@ Konsultasi pasien
     <div class="card-header">
         <div class="d-flex justify-content-between">
             <h6 style="color: #00f;"> Data konsultasi </h6>
-            <?php if(session()->get('hak-akses') == "pasien") : ?>
+            <?php if (session()->get('hak-akses') == "pasien") : ?>
                 <a href="/konsultasi/tambah" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus"></i>Buat konsultasi baru</a>
             <?php endif; ?>
         </div>
@@ -21,20 +21,19 @@ Konsultasi pasien
         </div>
     <?php endif; ?>
     <div class="card-body">
-    <div class="card-body">
         <div class="table-responsive">
             <table class="table table-striped table-bordered" id="datatables">
                 <thead>
                     <tr>
                         <th width="5%">No</th>
                         <th scope="col">ID Konsul</th>
-                        <?php if(session()->get('hak_akses') == "pasien") : ?>
+                        <?php if (session()->get('hak_akses') == "pasien") : ?>
                             <th scope="col">Nama Dokter</th>
                         <?php else : ?>
                             <th scope="col">Nama Pasien</th>
                         <?php endif; ?>
                         <th scope="col">tanggal Konsul</th>
-                        <th width="10%">#</th>
+                        <th width="10%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,29 +44,25 @@ Konsultasi pasien
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $k['id_konsultasi']; ?></td>
-                            <?php if(session()->get('hak_akses') =="pasien") : ?>
+                            <?php if (session()->get('hak_akses') == "pasien") : ?>
                                 <td><?= $k['nama_dokter']; ?></td>
                             <?php else : ?>
                                 <td><?= $k['nama_pasien']; ?></td>
                             <?php endif; ?>
                             <td><?= $k['tanggal_konsul']; ?></td>
-
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <div class="btn-group">
                                         <!-- detail -->
                                         <a href="/konsultasi/roomchat/<?= $k['id_konsultasi']; ?>" class="btn btn-primary"><i class="fas fa-file"></i></a>
-
                                         <!-- edit -->
                                         <!-- <a href="/dokter/editdokter/<?= $k['id_dokter']; ?>" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a> -->
-                                        
                                         <!-- button hapus -->
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal_<?= $k['id_dokter'] ?>">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                     <div class="hapus">
-
                                         <!-- Button hapus -->
                                         <div class="modal fade" id="deleteModal_<?= $k['id_dokter'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -99,17 +94,16 @@ Konsultasi pasien
             </table>
         </div>
     </div>
-    </div>
 </div>
 
 <?= $this->endSection(); ?>
 
 <?= $this->section('js'); ?>
-    <script>
-        window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
-            $(this).remove(); 
-            });
-        }, 3000);
-    </script>
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function() {
+            $(this).remove();
+        });
+    }, 3000);
+</script>
 <?= $this->endSection(); ?>

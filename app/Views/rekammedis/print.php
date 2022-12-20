@@ -20,7 +20,6 @@
 
 <body>
     <div id="container">
-        <p style="text-align: center;"><img src="<?= base_url() ?>/img/logo.png" height="65" , style="float: left;">
             <center>
                 <h3>Catatan Rekam Medis</h3>
                 <h4>Jln. Raya Bojong Kajen - Bojong Telp. (0285) 4483058 </h4>
